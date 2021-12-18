@@ -1,0 +1,283 @@
+html {
+    overflow-y: scroll;
+  }
+
+h1 {
+    font-size: 2rem;
+}
+
+
+h2 {
+    font-size: 1.8rem;
+}
+
+h3 {
+    font-size: 1.4rem !important;
+}
+
+
+.input-field {
+    &.invalid {
+        label {
+            color: $input-error-color;
+        }
+        input {
+            @extend %invalid-input-style;
+        }
+
+
+        span.helper-text {
+            color: $input-error-color;
+        }
+    }
+}
+
+ul.sidenav {
+    a.collapsible-header {
+        text-transform: none !important;
+    }
+    a {
+        font-weight: normal;
+    }
+    div.sidenav-user-title {
+        cursor: pointer;
+    }
+
+    li.project-title {
+        >a {
+            text-transform: uppercase !important;
+            font-weight: bold;
+        }
+    }
+}
+
+div.view-panel-line {
+    margin-left: 100px;
+
+    span {
+        display: block;
+        float: left;
+        margin-left: -100px;
+        color: #808080;
+    }
+}
+
+.dashboard-categories {
+	margin-top: 10px;
+}
+
+.dashboard-sections {
+    min-height: 10px;
+}
+
+.dashboard-category {
+    width: 600px;
+    margin-bottom: 30px;
+    clear: both;
+
+    >span.numbering {
+        display: block;
+        float: left;
+        width: 30px;
+        font-size: 1.4rem;
+    }
+
+    >a {
+        font-size: 1.4rem;
+    }
+
+
+    >span.total {
+        display: block;
+        float: right;
+        font-weight: bold;
+        border-top: solid 1px #808080;
+    }
+
+    span.handle {
+        cursor: ns-resize;
+    }
+}
+
+.dashboard-section {
+    margin-left: 30px;
+
+    >span.numbering {
+        display: block;
+        float: left;
+        width: 30px;
+    }
+
+    >span.total {
+        display: block;
+        float: right;
+    }
+}
+
+h2 {
+    span#view-section-title {
+        display: block;
+        color: #808080;
+        font-size: 14px;
+        line-height: 14px;
+    }
+}
+
+
+table.view-section-item, table#view-section-header {
+    .ui-sortable-handle {
+        cursor: ns-resize;
+    }
+
+    .editor-item-submit {
+        .input-field {
+            float: left;
+            margin-right: 10px;
+        }
+    }
+
+    .col-item-delete {
+        width: 3%;
+        text-align: center;
+        vertical-align: top !important;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .col-item-order {
+        width: 7%;
+        vertical-align: top !important;
+        text-align: center;
+    }
+    .col-item-descript {
+        width: 50%;
+        textarea {
+            font-size: 95% !important;
+            line-height: normal !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+    }
+    .col-item-unit {
+        width: 7%;
+        text-align: center;
+    }
+    .col-item-qty {
+        width: 11%;
+        text-align: right;
+    }
+    .col-item-price {
+        width: 11%;
+        text-align: right;
+    }
+    .col-item-total {
+        width: 11%;
+        padding-right: 5px;
+        text-align: right;
+    }
+}
+
+table#view-section-footer {
+    .col-item-caption-total {
+        width: 88%;
+        text-align: right;
+    }
+    .col-item-grand-total {
+        width: 12%;
+        text-align: right;
+    }
+}
+
+
+#view-section-edit-form {
+    padding-top: 15px;
+    background-color: #f0f0f0;
+
+    tr {
+        border: none;
+    }
+    .row-qties {
+        padding: 0;
+    }
+    td.col-item {
+        padding: 0;
+        padding-right: 10px;
+    }
+
+    .input-field {
+        padding: 0;
+        margin: 0;
+
+        input {
+            height: 20px;
+            margin: 0;
+        }
+
+        .validation-error {
+            border: solid 1px red;
+        }
+    }
+
+    #view-section-cancel {
+        cursor: pointer;
+    }
+}
+
+ul#view-section-sortable {
+    margin: 0;
+}
+
+.view-section-actions {
+    height: 10px;
+
+    a {
+        display: block;
+        float: left;
+        width: 50%;
+        height: 10px;
+
+    }
+    a:hover {
+        background-color: lighten($primary-color, 20%);
+    }
+}
+
+.qties-qty_value {
+    text-align: right;
+    padding-right: 2px !important;
+
+    &.formula-field-focused {
+        text-align: left !important;
+    }
+}
+
+.row-qties {
+    input {
+        font-size: 80% !important;
+    }
+    .qties-qty_value {
+        background-color: transparent !important;
+    }
+}
+
+.qty-handle {
+    font-size: 80% !important;
+}
+
+.qties-aux_value, .qties-descript {
+    padding-right: 2px !important;
+    background-color: transparent !important;
+}
+
+#view-section-add-qty {
+    @extend .btn;
+    @extend .btn-small;
+    font-size: 60% !important;
+    line-height: normal !important;
+    height: auto !important;
+    background-color: $primary-color;
+    padding: 3px !important;
+}
+
+textarea {
+    line-height: normal !important;
+}
