@@ -30,7 +30,7 @@ use Cake\View\View;
 class AppView extends View
 {
     /**
-     * @var \App\Model\Entity\User $currentUser
+     * @var \App\Model\Entity\User|null $currentUser
      */
     protected $currentUser = null;
 
@@ -49,10 +49,7 @@ class AppView extends View
         ?EventManager $eventManager = null,
         array $viewOptions = []
     ) {
-        $currentUser = $request->getAttribute('identity');
-        if (!empty($currentUser)) {
-            $this->currentUser = $currentUser;
-        }
+        $this->currentUser = $request ? $request->getAttribute('identity') : null;
 
         parent::__construct($request, $response, $eventManager, $viewOptions);
     }

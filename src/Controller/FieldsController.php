@@ -18,7 +18,7 @@ class FieldsController extends AppController
      * BeforeFilter event handler
      *
      * @param \Cake\Event\EventInterface $event Event interface
-     * @return \Cake\Http\Response|null
+     * @return void
      */
     public function beforeFilter(EventInterface $event)
     {
@@ -29,8 +29,6 @@ class FieldsController extends AppController
                 $this->FormProtection->setConfig('validate', false);
             }
         }
-
-        return null;
     }
 
     /**
@@ -73,7 +71,7 @@ class FieldsController extends AppController
                 } catch (\Exception $e) {
                     $result['error'] = $EvalMath->getError();
                 }
-                if ($EvalMath->isValidFloat($formula_value)) {
+                if ($EvalMath->isValidFloat((string)$formula_value)) {
                     $result['result'] = '' . $formula_value;
                 }
             }

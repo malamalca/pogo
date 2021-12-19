@@ -15,11 +15,11 @@ class CategoriesController extends AppController
     /**
      * View method
      *
-     * @param string|null $id Category id.
+     * @param string $id Category id.
      * @return void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view($id)
     {
         $category = $this->Categories->getCached($id);
         $this->Authorization->authorize($category);
@@ -42,8 +42,13 @@ class CategoriesController extends AppController
         if ($id) {
             $category = $this->Categories->get($id);
         } else {
+            $projectId = $this->getRequest()->getQuery('project');
+            if (!is_string($projectId)) {
+                throw new \Cake\Http\Exception\NotAcceptableException();
+            }
+
             $category = $this->Categories->newEmptyEntity();
-            $category->project_id = $this->getRequest()->getQuery('project');
+            $category->project_id = $projectId;
         }
 
         $this->Authorization->authorize($category);

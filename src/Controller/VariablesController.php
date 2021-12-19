@@ -7,7 +7,7 @@ namespace App\Controller;
  * Variables Controller
  *
  * @property \App\Model\Table\VariablesTable $Variables
- * @method \App\Model\Entity\Variable[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @method \Cake\Datasource\ResultSetInterface|\Cake\ORM\ResultSet paginate($object = null, array $settings = [])
  */
 class VariablesController extends AppController
 {

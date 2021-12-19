@@ -32,7 +32,6 @@ class QtiesTableTest extends TestCase
         'app.Sections',
         'app.Categories',
         'app.Projects',
-        'app.Companies',
     ];
 
     /**

@@ -53,6 +53,8 @@ class InviteUserForm extends Form
         $Users = TableRegistry::get('Users');
 
         // try to find user with specified data
+
+        /** @var \App\Model\Entity\User $user */
         $user = $Users->find()->select()->where(['email' => $data['email']])->first();
 
         if (!empty($user)) {

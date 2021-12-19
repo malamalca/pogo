@@ -10,9 +10,9 @@ use Cake\Validation\Validator;
 /**
  * ProjectsUsers Model
  *
- * @method \App\Model\Entity\ProjectsUser get(string $id, array $options = [])
+ * @method \App\Model\Entity\ProjectsUser get(mixed $id, array $options = [])
  * @method \App\Model\Entity\ProjectsUser newEmptyEntity()
- * @method \App\Model\Entity\ProjectsUser patchEntity(\App\Model\Entity\ProjectsUser $section, array $data)
+ * @method \App\Model\Entity\ProjectsUser patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @property \Cake\ORM\Association\BelongsTo $Projects
  * @property \Cake\ORM\Association\BelongsTo $Users
  */

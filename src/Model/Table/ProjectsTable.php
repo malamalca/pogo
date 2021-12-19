@@ -13,8 +13,8 @@ use Cake\Validation\Validator;
  * Projects Model
  *
  * @method \App\Model\Entity\Project newEmptyEntity()
- * @method \App\Model\Entity\Project get(string $id, array $options = [])
- * @method \App\Model\Entity\Project patchEntity(\App\Model\Entity\Project $project, array $data)
+ * @method \App\Model\Entity\Project get(mixed $id, array $options = [])
+ * @method \App\Model\Entity\Project patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @property \Cake\ORM\Association\BelongsTo $Companies
  * @property \App\Model\Table\CategoriesTable $Categories
  * @property \Cake\ORM\Association\HasMany $QtiesTags

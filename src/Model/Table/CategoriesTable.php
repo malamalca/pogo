@@ -17,8 +17,8 @@ use Cake\Validation\Validator;
 /**
  * Categories Model
  *
- * @method \App\Model\Entity\Category get(string $id)
- * @method \App\Model\Entity\Category patchEntity(\App\Model\Entity\Category $category, array $data)
+ * @method \App\Model\Entity\Category get(mixed $id, array $options = [])
+ * @method \App\Model\Entity\Category patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Category newEmptyEntity()
  * @property \Cake\ORM\Association\BelongsTo $Projects
  * @property \Cake\ORM\Association\HasMany $QtiesTags
@@ -116,10 +116,11 @@ class CategoriesTable extends Table
                             'project_id' => $category->project_id,
                             'NOT' => ['id' => $category->id],
                         ])
-                        ->first()
+                        ->enableHydration(false)
+                        ->all()
                         ->toArray();
 
-                    $category->sort_order = $order['max_order'] + 1;
+                    $category->sort_order = $order[0]['max_order'] + 1;
                     $this->save($category);
                 } else {
                     $this->updateAll(
@@ -239,11 +240,12 @@ class CategoriesTable extends Table
         $category_total = $query
             ->select(['category_total' => $query->func()->sum('total')])
             ->where(['category_id' => $categoryId])
-            ->first()
+            ->enableHydration(false)
+            ->all()
             ->toArray();
 
         $category = $this->get($categoryId);
-        $category->total = $category_total['category_total'];
+        $category->total = $category_total[0]['category_total'];
         $this->save($category);
     }
 
@@ -269,6 +271,7 @@ class CategoriesTable extends Table
         }
 
         if (!$category) {
+            /** @var \App\Model\Entity\Category $category */
             $category = $this->find()
                 ->select()
                 ->where(['id' => $categoryId])

@@ -160,9 +160,13 @@ class PogoExport
                                 return $q->where(['QtiesTags.tag IN' => (array)$options['tag']]);
                             });
                         }
+
+                        /** @var \Cake\ORM\ResultSet $sections */
                         $sections = $q->all();
 
                         foreach ($sections as $section) {
+                            /** @var \App\Model\Entity\Section $section */
+
                             // recap sheet
                             $activeSheet->SetCellValue('A' . $j, self::rome($sectCntr) . '.');
                             $activeSheet->SetCellValue('B' . $j, h($section->title));
@@ -361,7 +365,7 @@ class PogoExport
 
                             // grand total
                             $ws->SetCellValue('A' . $i, __('Grand total') . ':');
-                            if (empty($qties)) {
+                            if ($qties->count() == 0) {
                                 $ws->SetCellValue('F' . $i, '0');
                             } else {
                                 $ws->SetCellValue('F' . $i, '=SUM(F6:F' . ($i - 2) . ')');
@@ -396,7 +400,7 @@ class PogoExport
                         $activeSheet->getStyle('A' . $j . ':C' . $j)->getFont()->setSize(18);
                         $activeSheet->getStyle('A' . $j . ':C' . $j)->getFont()->setBold(true);
 
-                        if (empty($sections)) {
+                        if ($sections->count() == 0) {
                             $activeSheet->SetCellValue('C' . $category_row, 0);
                         } else {
                             $activeSheet->SetCellValue(

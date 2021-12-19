@@ -169,9 +169,9 @@ if (!empty($section->items)) {
             $item->sort_order,
             nl2br(h($item->descript)),
             isset($qtys[$item->unit]) ? $qtys[$item->unit] : h($item->unit),
-            is_null($item->qty) ? "" : $this->Number->precision($item->qty, 2),
-            is_null($item->price) ? "" : $this->Number->precision($item->price, 2),
-            $item->price && !is_null($item->qty) ? $this->Number->precision(round($item->qty * $item->price, 2), 2) : "",
+            is_null($item->qty) ? "" : $this->Number->precision((float)$item->qty, 2),
+            is_null($item->price) ? "" : $this->Number->precision((float)$item->price, 2),
+            $item->price && !is_null($item->qty) ? $this->Number->precision((float)round($item->qty * $item->price, 2), 2) : "",
 
             // delete link
             $this->getCurrentUser()->hasRole('editor', $category->project_id) ?
@@ -203,7 +203,7 @@ $section_view['panels']['items']['lines']['footer'] = sprintf(
     '<th class="col-item-grand-total">%2$s</th>' .
     '</tr></table>',
     __('Grand Total'),
-    $this->Number->precision($total, 2)
+    $this->Number->precision((float)$total, 2)
 );
 
 $section_view['panels']['items']['lines']['editor'] =

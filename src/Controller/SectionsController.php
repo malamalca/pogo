@@ -47,8 +47,13 @@ class SectionsController extends AppController
         if ($id) {
             $section = $this->Sections->get($id);
         } else {
+            $categoryId = $this->getRequest()->getQuery('category');
+            if (!is_string($categoryId)) {
+                throw new \Cake\Http\Exception\NotAcceptableException();
+            }
+
             $section = $this->Sections->newEmptyEntity();
-            $section->category_id = $this->request->getQuery('category');
+            $section->category_id = $categoryId;
         }
         $category = $this->Sections->Categories->get($section->category_id);
 
@@ -101,7 +106,7 @@ class SectionsController extends AppController
      * @param string $category_id Category Id
      * @return void
      */
-    public function reorder($id, $position, $category_id = null)
+    public function reorder($id, $position, $category_id)
     {
         $section = $this->Sections->get($id);
 

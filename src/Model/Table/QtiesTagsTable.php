@@ -18,10 +18,9 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\QtiesTag get($primaryKey, $options = [])
  * @method \App\Model\Entity\QtiesTag newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\QtiesTag[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\QtiesTag|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\QtiesTag|bool saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\QtiesTag|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\QtiesTag saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \App\Model\Entity\QtiesTag patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\QtiesTag[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\QtiesTag findOrCreate($search, callable $callback = null, $options = [])
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */

@@ -167,11 +167,12 @@ class QtiesTable extends Table
                 $item_total = $query
                     ->select(['qty_sum' => $query->func()->sum('qty_value')])
                     ->where(['item_id' => $qty->item_id])
-                    ->first()
+                    ->enableHydration(false)
+                    ->all()
                     ->toArray();
 
                 $item = $this->Items->get($qty->item_id);
-                $item->qty = $item_total['qty_sum'];
+                $item->qty = $item_total[0]['qty_sum'];
                 $this->Items->save($item);
             }
         }
@@ -191,11 +192,12 @@ class QtiesTable extends Table
         $item_total = $query
             ->select(['qty_sum' => $query->func()->sum('qty_value')])
             ->where(['item_id' => $qty->item_id])
-            ->first()
+            ->enableHydration(false)
+            ->all()
             ->toArray();
 
         $item = $this->Items->get($qty->item_id);
-        $item->qty = $item_total['qty_sum'];
+        $item->qty = $item_total[0]['qty_sum'];
         $this->Items->save($item);
     }
 
@@ -211,9 +213,10 @@ class QtiesTable extends Table
         $item_total = $query
             ->select(['qty_sum' => $query->func()->sum('qty_value')])
             ->where(['item_id' => $itemId])
-            ->first()
+            ->enableHydration(false)
+            ->all()
             ->toArray();
 
-        return empty($item_total['qty_sum']) ? 0 : $item_total['qty_sum'];
+        return empty($item_total[0]['qty_sum']) ? 0 : $item_total[0]['qty_sum'];
     }
 }

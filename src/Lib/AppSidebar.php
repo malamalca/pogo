@@ -46,7 +46,7 @@ class AppSidebar
         }
 
         $sidebar['welcome'] = [
-            'title' => $currentProjectId ? $projectTitle : __('Dashboard'),
+            'title' => $projectTitle ?? __('Dashboard'),
             'visible' => $currentUser->get('id') && empty($currentProjectId),
             'active' => empty($currentProjectId),
             'url' => [
@@ -84,7 +84,7 @@ class AppSidebar
         // show current project
         $sidebar['frontpage'] = [
             'visible' => !empty($currentProjectId),
-            'title' => empty($currentProjectId) ? '' : $projectTitle,
+            'title' => $projectTitle ?? '',
             'url' => [
                 'controller' => 'Projects',
                 'action' => 'view',

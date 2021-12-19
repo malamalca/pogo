@@ -93,7 +93,7 @@ foreach ($sections as $section) {
     ]);
     $category_view['panels']['sections']['lines'][] = sprintf(
         '<span class="total"><span class="section-total">%1$s</span> %2$s</span>',
-        $this->Number->precision($section->total, 2),
+        $this->Number->precision((float)$section->total, 2),
         $this->Number->formatter()->getSymbol(\NumberFormatter::CURRENCY_SYMBOL)
     );
     $category_view['panels']['sections']['lines'][] = '</li>';
@@ -104,7 +104,7 @@ foreach ($sections as $section) {
 $category_view['panels']['sections']['lines'][] = '</ul>';
 $category_view['panels']['sections']['lines'][] = sprintf(
     '<span class="total"><span class="category-total">%1$s</span> %2$s</span>',
-    $this->Number->precision($total, 2),
+    $this->Number->precision((float)$total, 2),
     $this->Number->formatter()->getSymbol(\NumberFormatter::CURRENCY_SYMBOL)
 );
 

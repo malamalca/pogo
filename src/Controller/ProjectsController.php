@@ -68,7 +68,10 @@ class ProjectsController extends AppController
 
             // link new project to a user who is logged in
             if ($project->isNew()) {
-                $project->users = [0 => $this->getCurrentUser()->getOriginalData()];
+                $currentUser = $this->getCurrentUser();
+                if ($currentUser) {
+                    $project->users = [0 => $currentUser->getOriginalData()];
+                }
             }
 
             if ($this->Projects->save($project, ['associated' => ['Users']])) {
@@ -155,7 +158,7 @@ class ProjectsController extends AppController
      * @param string $id Project id
      * @return void
      */
-    public function export($id = null)
+    public function export($id)
     {
         $project = $this->Projects->get($id);
         $this->Authorization->authorize($project);
@@ -192,10 +195,15 @@ class ProjectsController extends AppController
             }
 
             $this->autoRender = false;
-            $result = PogoExport::execute($this->request->getQuery('type'), $filter);
+
+            $exportType = $this->getRequest()->getQuery('type');
+            if (!is_string($exportType)) {
+                throw new \Cake\Http\Exception\NotAcceptableException();
+            }
+            $result = PogoExport::execute($exportType, $filter);
 
             if ($result !== true) {
-                $this->Flash->error($result);
+                $this->Flash->error((string)$result);
                 $this->redirect($this->referer());
             }
         }

@@ -36,7 +36,7 @@ class Qty extends Entity
      * be mass assigned. For security purposes, it is advised to set '*' to false
      * (or remove it), and explicitly make individual fields accessible as needed.
      *
-     * @var array
+     * @var array<array-key, bool>
      */
     protected $_accessible = [
         '*' => true,
@@ -48,7 +48,7 @@ class Qty extends Entity
     /**
      *  Virtual property that converts qty formula to localized version
      *
-     * @return string|null
+     * @return bool|float|string|null
      */
     public function _getI18nQtyFormula()    // phpcs:ignore
     {
@@ -71,7 +71,7 @@ class Qty extends Entity
     /**
      *  Virtual property that converts aux formula to localized version
      *
-     * @return string|null
+     * @return bool|float|null|string
      */
     public function _getI18nAuxFormula()    // phpcs:ignore
     {
@@ -81,6 +81,6 @@ class Qty extends Entity
 
         $EvalMath = EvalMath::getInstance();
 
-        return $EvalMath->localize($this->aux_formula);
+        return $EvalMath->localize((string)$this->aux_formula);
     }
 }

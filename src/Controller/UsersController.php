@@ -10,7 +10,7 @@ use Cake\Http\Exception\NotFoundException;
  *
  * @property \App\Model\Table\UsersTable $Users
  * @property \Cake\Controller\Component\SecurityComponent $Security
- * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @method \Cake\Datasource\ResultSetInterface|\Cake\ORM\ResultSet paginate($object = null, array $settings = [])
  */
 class UsersController extends AppController
 {
@@ -27,16 +27,14 @@ class UsersController extends AppController
     /**
      * BeforeFilter method.
      *
-     * @param \Cake\Event\Event $event Cake Event object.
-     * @return \Cake\Http\Response|void|null
+     * @param \Cake\Event\EventInterface $event Cake Event object.
+     * @return void
      */
     public function beforeFilter($event)
     {
         parent::beforeFilter($event);
 
         $this->Authentication->allowUnauthenticated(['login', 'reset', 'changePassword', 'avatar']);
-
-        return null;
     }
 
     /**
@@ -51,7 +49,7 @@ class UsersController extends AppController
         $result = $this->Authentication->getResult();
 
         // regardless of POST or GET, redirect if user is logged in
-        if ($result->isValid()) {
+        if (!is_null($result) && $result->isValid()) {
             $user = $this->Authentication->getIdentity();
 
             /*$this->loadModel('AuditLogins');
@@ -66,11 +64,11 @@ class UsersController extends AppController
                 $redirect = $this->getRequest()->getQuery('redirect', '/');
             }
 
-            return $this->redirect($redirect);
+            return $this->redirect($redirect ?? '/');
         }
 
         // display error if user submitted and authentication failed
-        if ($this->getRequest()->is(['post']) && !$result->isValid()) {
+        if ($this->getRequest()->is(['post']) && !is_null($result) && !$result->isValid()) {
             $this->Flash->error('Invalid username or password');
         }
 
@@ -198,7 +196,7 @@ class UsersController extends AppController
      * Immediatelly login as specified user
      *
      * @param string $id User id.
-     * @return \Cake\Http\Response
+     * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function loginAs($id)
@@ -250,7 +248,10 @@ class UsersController extends AppController
      */
     public function properties()
     {
-        $user = $this->Users->get($this->getCurrentUser()->get('id'));
+        $user = $this->getCurrentUser();
+        if (!$user) {
+            throw new \Cake\Datasource\Exception\RecordNotFoundException();
+        }
 
         $this->Authorization->authorize($user);
 
@@ -291,7 +292,7 @@ class UsersController extends AppController
      * Delete method
      *
      * @param string|null $id User id.
-     * @return \Cake\Http\Response Redirects to index.
+     * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)

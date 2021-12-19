@@ -16,9 +16,9 @@ use Cake\Validation\Validator;
 /**
  * Sections Model
  *
- * @method \App\Model\Entity\Section get(string $id, array $options = [])
+ * @method \App\Model\Entity\Section get(mixed $id, array $options = [])
  * @method \App\Model\Entity\Section newEmptyEntity()
- * @method \App\Model\Entity\Section patchEntity(\App\Model\Entity\Section $section, array $data)
+ * @method \App\Model\Entity\Section patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @property \App\Model\Table\CategoriesTable $Categories
  * @property \Cake\ORM\Association\HasMany|\App\Model\Table\ItemsTable $Items
  * @property \Cake\ORM\Association\HasMany $QtiesTags
@@ -118,10 +118,11 @@ class SectionsTable extends Table
                             'category_id' => $section->category_id,
                             'id <>' => $section->id,
                         ])
-                        ->first()
+                        ->enableHydration(false)
+                        ->all()
                         ->toArray();
 
-                    $section->sort_order = $order['max_order'] + 1;
+                    $section->sort_order = $order[0]['max_order'] + 1;
                     $this->save($section);
                 } else {
                     $this->updateAll(
@@ -143,9 +144,10 @@ class SectionsTable extends Table
                 $category_total = $query
                     ->select(['category_total' => $query->func()->sum('total')])
                     ->where(['category_id' => $section->category_id])
-                    ->first()
+                    ->enableHydration(false)
+                    ->all()
                     ->toArray();
-                $category->total = $category_total['category_total'];
+                $category->total = $category_total[0]['category_total'];
                 $this->Categories->save($category);
             }
         }
@@ -240,7 +242,7 @@ class SectionsTable extends Table
             }
             $section->total = $sum;
 
-            return $this->save($section);
+            return (bool)$this->save($section);
         }
 
         return false;

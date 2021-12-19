@@ -16,7 +16,7 @@ class ItemsController extends AppController
      * BeforeFilter event handler
      *
      * @param \Cake\Event\EventInterface $event Event interface
-     * @return \Cake\Http\Response|null
+     * @return void
      */
     public function beforeFilter(EventInterface $event)
     {
@@ -29,8 +29,6 @@ class ItemsController extends AppController
                 $this->FormProtection->setConfig('validate', false);
             }
         }
-
-        return null;
     }
 
     /**
@@ -133,7 +131,7 @@ class ItemsController extends AppController
 
         if ($this->request->is('ajax')) {
             $this->response = $this->response->withType('json');
-            $this->response = $this->response->withStringBody(json_encode(['result' => (bool)$ret]));
+            $this->response = $this->response->withStringBody(json_encode(['result' => $ret]));
 
             return $this->response;
         }
@@ -148,7 +146,7 @@ class ItemsController extends AppController
      * @param int $position New position inside section
      * @return void
      */
-    public function reorder($id, $position = null)
+    public function reorder($id, $position)
     {
         $item = $this->Items->get($id);
 

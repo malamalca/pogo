@@ -10,7 +10,7 @@ use App\Lib\CurrentLocation;
  * ProjectsUsers Controller
  *
  * @property \App\Model\Table\ProjectsUsersTable $ProjectsUsers
- * @method \App\Model\Entity\ProjectsUser[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @method \Cake\Datasource\ResultSetInterface|\Cake\ORM\ResultSet paginate($object = null, array $settings = [])
  */
 class ProjectsUsersController extends AppController
 {
@@ -45,6 +45,7 @@ class ProjectsUsersController extends AppController
      */
     public function invite($projectId)
     {
+        /** @var \App\Model\Entity\Project $project */
         $project = $this->ProjectsUsers->Projects->get($projectId);
         $this->Authorization->authorize($project, 'editUsers');
 
@@ -84,13 +85,18 @@ class ProjectsUsersController extends AppController
             ->first();
 
         if (!empty($projectsUser)) {
+            $currentUser = $this->getCurrentUser();
+            if (!$currentUser) {
+                throw new \Cake\Datasource\Exception\RecordNotFoundException();
+            }
+
             // check if user is already colaborating on this project
             /** @var \App\Model\Entity\ProjectsUser $exists */
             $exists = $this->ProjectsUsers->find()
                 ->select()
                 ->where([
                     'project_id' => $projectsUser->project_id,
-                    'user_id' => $this->getCurrentUser()->get('id'),
+                    'user_id' => $currentUser->id,
                 ])
                 ->first();
 
@@ -99,7 +105,7 @@ class ProjectsUsersController extends AppController
                 $this->redirect(['action' => 'index', $projectsUser->project_id]);
             } else {
                 // link user to project and reset invitation data
-                $projectsUser->user_id = $this->getCurrentUser()->get('id');
+                $projectsUser->user_id = $currentUser->id;
                 $projectsUser->accept_key = null;
                 $projectsUser->email = null;
                 $this->ProjectsUsers->save($projectsUser);

@@ -11,6 +11,9 @@ class CurrentLocation
 {
     private static $instance = null;
 
+    /**
+     * @var string|null $projectId
+     */
     protected $projectId = null;
     protected $categoryId = null;
     protected $sectionId = null;
@@ -46,12 +49,12 @@ class CurrentLocation
     /**
      * Set project, category and section
      *
-     * @param string $projectId Project id.
-     * @param string $categoryId Category id.
-     * @param string $sectionId Project id.
+     * @param string|null $projectId Project id.
+     * @param string|null $categoryId Category id.
+     * @param string|null $sectionId Project id.
      * @return void
      */
-    public static function set($projectId, $categoryId = null, $sectionId = null)
+    public static function set($projectId = null, $categoryId = null, $sectionId = null)
     {
         if (static::$instance === null) {
             static::$instance = new CurrentLocation();
@@ -64,10 +67,10 @@ class CurrentLocation
     /**
      * Set project
      *
-     * @param string $projectId Project id.
+     * @param string|null $projectId Project id.
      * @return void
      */
-    public static function setProject($projectId)
+    public static function setProject($projectId = null)
     {
         if (static::$instance === null) {
             static::$instance = new CurrentLocation();

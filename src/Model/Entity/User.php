@@ -35,7 +35,7 @@ class User extends Entity implements IdentityInterface
      * be mass assigned. For security purposes, it is advised to set '*' to false
      * (or remove it), and explicitly make individual fields accessible as needed.
      *
-     * @var array
+     * @var array<array-key, bool>
      */
     protected $_accessible = [
         'name' => true,
@@ -52,7 +52,7 @@ class User extends Entity implements IdentityInterface
     /**
      * Fields that are excluded from JSON versions of the entity.
      *
-     * @var array
+     * @var array<array-key, string>
      */
     protected $_hidden = [
         'passwd',
@@ -65,7 +65,7 @@ class User extends Entity implements IdentityInterface
      */
     public function __toString(): string
     {
-        return $this->name;
+        return (string)$this->name;
     }
 
     /**

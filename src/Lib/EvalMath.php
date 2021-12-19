@@ -235,9 +235,14 @@ class EvalMath
             if (in_array($matches[1], $this->vb)) { // make sure we're not assigning to a constant
                 return $this->trigger("cannot assign to constant '$matches[1]'");
             }
-            $tmp = $this->pfx($this->nfx($matches[2]));
-            if ($tmp === false) {
-                return false; // get the result and make sure it's good
+            $tokens = $this->nfx($matches[2]);
+            if ($tokens) {
+                $tmp = $this->pfx($tokens);
+                if ($tmp === false) {
+                    return false; // get the result and make sure it's good
+                }
+            } else {
+                return false;
             }
             $this->v[$matches[1]] = $tmp; // if so, stick it in the variable array
 
@@ -277,7 +282,12 @@ class EvalMath
             return true;
         //===============
         } else {
-            return $this->pfx($this->nfx($expr)); // straight up evaluation, woo
+            $tokens = $this->nfx($expr);
+            if ($tokens) {
+                return $this->pfx($tokens); // straight up evaluation, woo
+            } else {
+                return false;
+            }
         }
     }
 
@@ -286,13 +296,17 @@ class EvalMath
      *
      * @param string $expr Math expression for evaluation.
      * @param array $lvars Array of local variables.
-     * @return mixed
+     * @return string|bool
      */
     public function evaluateExpression($expr, $lvars = [])
     {
         $tokens = $this->nfx($expr);
 
-        return $this->pfx($tokens, $lvars);
+        if ($tokens) {
+            return $this->pfx($tokens, $lvars);
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -337,7 +351,7 @@ class EvalMath
      *
      * @param string|int|float $number Decimal or int number in local format
      * @param array $options Options which can override default settings. $options['foce'] -
-     * @return float
+     * @return float|null|string
      */
     public function delocalize($number, $options = [])
     {
@@ -360,12 +374,12 @@ class EvalMath
                 $pairs[$settings['currencySymbol']] = '';
             }
 
-            $result = trim(strtr($number, $pairs));
+            $result = trim(strtr((string)$number, $pairs));
             if (empty($options['force'])) {
                 $result = (float)$result;
             }
         } else {
-            $tokens = $this->nfx(substr($number, 1));
+            $tokens = $this->nfx(substr((string)$number, 1));
             if ($tokens) {
                 $result = '=' . $this->gfx($tokens, [], ['decimalSeparator' => '.']);
             }
@@ -390,11 +404,8 @@ class EvalMath
 
         if (is_numeric($number)) {
             $settings = array_merge($this->options, (array)$options);
-            if (!empty($settings['decimalSeparator'])) {
-                $pairs[$settings['decimalSeparator']] = '.';
-            }
 
-            $whole = floor($number);
+            $whole = floor((float)$number);
             $decimal = round((float)($number - $whole), 4);
             $decimal_str = substr((string)$decimal, 2);
             if (empty($decimal_str)) {
@@ -443,7 +454,7 @@ class EvalMath
     /**
      * Fetch all variables defined in EvalMath
      *
-     * @return array;
+     * @return array
      */
     public function vars()
     {
@@ -457,7 +468,7 @@ class EvalMath
     /**
      * Fetch all functions defined in EvalMath
      *
-     * @return array;
+     * @return array
      */
     public function funcs()
     {
@@ -476,7 +487,7 @@ class EvalMath
      *
      * @param string $expr Expression
      * @param array $options Options
-     * @return array|bool
+     * @return array|false
      */
     public function nfx($expr, $options = [])
     {
@@ -552,7 +563,7 @@ class EvalMath
                         $output[] = $o2;
                     }
                 }
-                if ($stack->last(2) && preg_match("/^([a-zA-Z]\w*)\($/", $stack->last(2), $matches)) { // did we just close a function?
+                if ($stack->last(2) && preg_match("/^([a-zA-Z]\w*)\($/", (string)$stack->last(2), $matches)) { // did we just close a function?
                     $fnn = $matches[1]; // get the function name
                     $argCount = $stack->pop(); // see how many arguments there were (cleverly stored on the stack, thank you)
                     $output[] = $stack->pop(); // pop the function and push onto the output
@@ -583,7 +594,7 @@ class EvalMath
                     }
                 }
                 // make sure there was a function
-                if (!preg_match("/^([a-zA-Z]\w*)\($/", $stack->last(2), $matches)) {
+                if (!preg_match("/^([a-zA-Z]\w*)\($/", (string)$stack->last(2), $matches)) {
                     return $this->trigger("unexpected ','");
                 }
                 $stack->push($stack->pop() + 1); // increment the argument count
@@ -610,7 +621,10 @@ class EvalMath
                         $output[] = $val;
                     }
                 } else { // it's a plain old var or num
-                    $noThousandsSeparator = strtr($val, [$options['thousandsSeparator'] => '']);
+                    $noThousandsSeparator = $val;
+                    if (!empty($options['thousandsSeparator'])) {
+                        $noThousandsSeparator = strtr($val, [$options['thousandsSeparator'] => '']);
+                    }
                     if ($this->isValidFloat($noThousandsSeparator, $options)) {
                         $output[] = $this->delocalize($noThousandsSeparator, $options);
                     } else {
@@ -721,7 +735,9 @@ class EvalMath
                         $fnn = 'rad3deg';
                     }
 
-                    $stack->push($fnn($op1));
+                    if (!is_null($fnn)) {
+                        $stack->push($fnn($op1));
+                    }
                     //eval('$stack->push(' . $fnn . '($op1));'); // perfectly safe eval()
                 } elseif (array_key_exists($fnn, $this->f)) { // user function
                     // get args
@@ -878,7 +894,7 @@ class EvalMath
      * Trigger an error, but nicely, if need be
      *
      * @param string $msg Message
-     * @return bool
+     * @return false
      */
     private function trigger($msg)
     {

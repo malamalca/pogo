@@ -15,8 +15,8 @@ use Cake\Validation\Validator;
  * Items Model
  *
  * @method \App\Model\Entity\Item newEmptyEntity()
- * @method \App\Model\Entity\Item get(string $id, array $options = [])
- * @method \App\Model\Entity\Item patchEntity(\App\Model\Entity\Item $item, array $data)
+ * @method \App\Model\Entity\Item get(mixed $id, array $options = [])
+ * @method \App\Model\Entity\Item patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @property \App\Model\Table\SectionsTable $Sections
  * @property \Cake\ORM\Association\HasMany $Fields
  * @property \App\Model\Table\QtiesTable $Qties
@@ -114,7 +114,7 @@ class ItemsTable extends Table
         if (!empty($item->qties)) {
             $qty_total = 0;
             foreach ($item->qties as $qty) {
-                $qty_total += $qty->qty_value;
+                $qty_total += (float)$qty->qty_value;
             }
             $item->qty = $qty_total;
         }
@@ -140,10 +140,11 @@ class ItemsTable extends Table
                     $order = $query
                         ->select(['max_order' => $query->func()->max('sort_order')])
                         ->where(['section_id' => $item->section_id])
-                        ->first()
+                        ->enableHydration(false)
+                        ->all()
                         ->toArray();
 
-                    $item->sort_order = $order['max_order'] + 1;
+                    $item->sort_order = $order[0]['max_order'] + 1;
                     $this->save($item);
                 } else {
                     $this->updateAll(
@@ -162,11 +163,12 @@ class ItemsTable extends Table
                 $section_total = $query
                     ->select(['sect_total' => $query->func()->sum('qty*price')])
                     ->where(['section_id' => $item->section_id])
-                    ->first()
+                    ->enableHydration(false)
+                    ->all()
                     ->toArray();
 
                 $section = $this->Sections->get($item->section_id);
-                $section->total = $section_total['sect_total'];
+                $section->total = $section_total[0]['sect_total'];
                 $this->Sections->save($section);
             }
         }
@@ -209,7 +211,7 @@ class ItemsTable extends Table
             }
             $item->qty = $sum;
 
-            return $this->save($item);
+            return (bool)$this->save($item);
         }
 
         return false;

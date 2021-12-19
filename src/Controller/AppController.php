@@ -69,14 +69,12 @@ class AppController extends Controller
      * beforeFilterCallback
      *
      * @param \Cake\Event\EventInterface $event Event object
-     * @return \Cake\Http\Response|null
+     * @return void
      */
     public function beforeFilter(EventInterface $event)
     {
         /** @var \App\Model\Entity\User $user */
         $user = $this->Authentication->getIdentity();
         $this->currentUser = $user;
-
-        return null;
     }
 }
