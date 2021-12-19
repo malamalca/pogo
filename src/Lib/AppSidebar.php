@@ -19,7 +19,9 @@ class AppSidebar
     public static function setSidebar($event, $sidebar)
     {
         $currentUser = null;
-        if (\is_callable([$event->getSubject(), 'getCurrentUser'])) {
+
+        $eventSubject = $event->getSubject();
+        if (is_a($eventSubject, \App\View\AppView::class)) {
             $currentUser = $event->getSubject()->getCurrentUser();
         }
 

@@ -48,7 +48,7 @@ class ItemsController extends AppController
         if ($this->request->is('ajax')) {
             $this->response = $this->response->withType('json');
         }
-        $this->response = $this->response->withStringBody(json_encode($item));
+        $this->response = $this->response->withStringBody((string)json_encode($item));
 
         return $this->response;
     }
@@ -86,7 +86,7 @@ class ItemsController extends AppController
                 $errors = $item->getErrors();
 
                 $this->response = $this->response->withType('json');
-                $this->response = $this->response->withStringBody(json_encode([
+                $this->response = $this->response->withStringBody((string)json_encode([
                     'result' => (bool)$result,
                     'data' => $result,
                     'errors' => $errors,
@@ -131,7 +131,7 @@ class ItemsController extends AppController
 
         if ($this->request->is('ajax')) {
             $this->response = $this->response->withType('json');
-            $this->response = $this->response->withStringBody(json_encode(['result' => $ret]));
+            $this->response = $this->response->withStringBody((string)json_encode(['result' => $ret]));
 
             return $this->response;
         }

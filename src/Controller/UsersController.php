@@ -261,8 +261,11 @@ class UsersController extends AppController
             $avatarFile = $this->getRequest()->getData('avatar_file');
             if (is_array($avatarFile)) {
                 if (isset($avatarFile['error'])) {
-                    if ($avatarFile['error'] == UPLOAD_ERR_OK) {
-                        $user->avatar = base64_encode(file_get_contents($avatarFile['tmp_name']));
+                    if ($avatarFile['error'] == UPLOAD_ERR_OK && file_exists($avatarFile['tmp_name'])) {
+                        $contents = file_get_contents($avatarFile['tmp_name']);
+                        if ($contents) {
+                            $user->avatar = base64_encode((string)$contents);
+                        }
                     }
                     if ($avatarFile['error'] == UPLOAD_ERR_NO_FILE) {
                         unset($user->avatar);
@@ -333,7 +336,7 @@ class UsersController extends AppController
         }
 
         $response = $this->response
-            ->withStringBody($imageData)
+            ->withStringBody((string)$imageData)
             ->withType('png')
             ->withCache('-1 day', '+30 days');
 

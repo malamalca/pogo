@@ -6,8 +6,19 @@ namespace App\Lib;
 // for internal use
 class EvalMathStack
 {
+    /**
+     * @var array $stack
+     */
     public $stack = [];
+
+    /**
+     * @var array $tokens
+     */
     public $tokens = [];
+
+    /**
+     * @var int $count
+     */
     public $count = 0;
 
     /**

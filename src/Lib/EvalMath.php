@@ -91,16 +91,53 @@ LICENSE
 
 class EvalMath
 {
+    /**
+     * @var \App\Lib\EvalMath|null $instance
+     */
     private static $instance = null;
 
+    /**
+     * @var bool $suppress_errors
+     * */
     private $suppress_errors = true;
+
+    /**
+     * @var string|null $last_error
+     */
     private $last_error = null;
+
+    /**
+     * @var array $options
+     */
     private $options = ['decimalSeparator' => '.', 'thousandsSeparator' => ''];
 
-    private $v = ['e' => 2.71, 'pi' => 3.14]; // variables (and constants)
-    private $f = [/*'pow' => array('args' => array('b', 'p'), 'func' => array('b', 'p', '^'))*/]; // user-defined functions
+    /**
+     * Variables and constants
+     *
+     * @var array $v
+     */
+    private $v = ['e' => 2.71, 'pi' => 3.14];
+
+    /**
+     * User defined functions and constants
+     *
+     * @var array $f
+     */
+    private $f = ['pow' => ['args' => ['b', 'p'], 'func' => ['b', 'p', '^']]];
+
+    /**
+     * Build-in constants
+     *
+     * @var array $vb
+     */
     private $vb = ['e', 'pi']; // constants
-    private $fb = [ // built-in functions
+
+    /**
+     * Build-in functions
+     *
+     * @var array $fb
+     */
+    private $fb = [
         'sin', 'sinh', 'arcsin', 'asin', 'arcsinh', 'asinh',
         'cos', 'cosh', 'arccos', 'acos', 'arccosh', 'acosh',
         'tan', 'tanh', 'arctan', 'atan', 'arctanh', 'atanh',
@@ -735,7 +772,7 @@ class EvalMath
                         $fnn = 'rad3deg';
                     }
 
-                    if (!is_null($fnn)) {
+                    if (!is_null($fnn) && is_callable($fnn)) {
                         $stack->push($fnn($op1));
                     }
                     //eval('$stack->push(' . $fnn . '($op1));'); // perfectly safe eval()

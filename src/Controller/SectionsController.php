@@ -119,7 +119,7 @@ class SectionsController extends AppController
             ];
 
             $this->response = $this->response->withType('json');
-            $this->response = $this->response->withStringBody(json_encode($ret));
+            $this->response = $this->response->withStringBody((string)json_encode($ret));
 
             $this->autoRender = false;
         }

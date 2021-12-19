@@ -77,7 +77,7 @@ class FieldsController extends AppController
             }
         }
         $this->response = $this->response->withType('json');
-        $this->response = $this->response->withStringBody(json_encode($result));
+        $this->response = $this->response->withStringBody((string)json_encode($result));
 
         return $this->response;
     }

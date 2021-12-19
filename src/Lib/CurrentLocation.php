@@ -9,13 +9,24 @@ namespace App\Lib;
 
 class CurrentLocation
 {
+    /**
+     * @var \App\Lib\CurrentLocation $instance
+     */
     private static $instance = null;
 
     /**
      * @var string|null $projectId
      */
     protected $projectId = null;
+
+    /**
+     * @var string|null $categoryId
+     */
     protected $categoryId = null;
+
+    /**
+     * @var string|null $sectionId
+     */
     protected $sectionId = null;
 
     /**

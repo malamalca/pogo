@@ -133,34 +133,39 @@ class User extends Entity implements IdentityInterface
 
         if (!empty($this->avatar)) {
             $im = imagecreatefromstring(base64_decode($this->avatar));
-            $width = imagesx($im);
-            $height = imagesy($im);
+            if ($im) {
+                $width = imagesx($im);
+                $height = imagesy($im);
 
-            if ($width > $height) {
-                $newHeight = $avatarSize;
-                $newWidth = (int)floor($width * $newHeight / $height);
-                $cropX = (int)ceil(($width - $height) / 2);
-                $cropY = 0;
-            } else {
-                $newWidth = $avatarSize;
-                $newHeight = (int)floor($height * $newWidth / $width);
-                $cropX = 0;
-                $cropY = (int)ceil(($height - $width) / 2);
+                if ($width > $height) {
+                    $newHeight = $avatarSize;
+                    $newWidth = (int)floor($width * $newHeight / $height);
+                    $cropX = (int)ceil(($width - $height) / 2);
+                    $cropY = 0;
+                } else {
+                    $newWidth = $avatarSize;
+                    $newHeight = (int)floor($height * $newWidth / $width);
+                    $cropX = 0;
+                    $cropY = (int)ceil(($height - $width) / 2);
+                }
+
+                $newImage = imagecreatetruecolor($avatarSize, $avatarSize);
+                if ($newImage) {
+                    imagealphablending($newImage, false);
+                    imagesavealpha($newImage, true);
+                    $transparent = (int)imagecolorallocatealpha($newImage, 255, 255, 255, 127);
+                    imagefilledrectangle($newImage, 0, 0, $avatarSize, $avatarSize, $transparent);
+                    imagecopyresampled($newImage, $im, 0, 0, $cropX, $cropY, $newWidth, $newHeight, $width, $height);
+
+                    ob_start();
+                    imagepng($newImage);
+                    $ret = ob_get_contents();
+                    ob_end_clean();
+                    imagedestroy($newImage);
+                }
+
+                imagedestroy($im);
             }
-
-            $newImage = imagecreatetruecolor($avatarSize, $avatarSize);
-            imagealphablending($newImage, false);
-            imagesavealpha($newImage, true);
-            $transparent = imagecolorallocatealpha($newImage, 255, 255, 255, 127);
-            imagefilledrectangle($newImage, 0, 0, $avatarSize, $avatarSize, $transparent);
-            imagecopyresampled($newImage, $im, 0, 0, $cropX, $cropY, $newWidth, $newHeight, $width, $height);
-            imagedestroy($im);
-
-            ob_start();
-            imagepng($newImage);
-            $ret = ob_get_contents();
-            ob_end_clean();
-            imagedestroy($newImage);
         }
 
         return $ret;
