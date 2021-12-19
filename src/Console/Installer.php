@@ -399,7 +399,7 @@ class Installer
                         'username' => $adminUsername,
                         'pass' => $adminPassword,
                         'ctitle' => $companyTitle,
-                        'ctaxno' => $companyTaxNo
+                        'ctaxno' => $companyTaxNo,
                     ],
                     [
                         'id' => 'string',
