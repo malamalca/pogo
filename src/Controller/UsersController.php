@@ -264,7 +264,7 @@ class UsersController extends AppController
                     if ($avatarFile['error'] == UPLOAD_ERR_OK && file_exists($avatarFile['tmp_name'])) {
                         $contents = file_get_contents($avatarFile['tmp_name']);
                         if ($contents) {
-                            $user->avatar = base64_encode((string)$contents);
+                            $user->avatar = base64_encode($contents);
                         }
                     }
                     if ($avatarFile['error'] == UPLOAD_ERR_NO_FILE) {

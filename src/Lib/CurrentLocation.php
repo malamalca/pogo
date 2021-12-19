@@ -10,7 +10,7 @@ namespace App\Lib;
 class CurrentLocation
 {
     /**
-     * @var \App\Lib\CurrentLocation $instance
+     * @var \App\Lib\CurrentLocation|null $instance
      */
     private static $instance = null;
 

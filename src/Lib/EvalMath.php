@@ -209,7 +209,7 @@ class EvalMath
      * Set options
      *
      * @param array $options Options
-     * @return \App\Lib\EvalMath
+     * @return \App\Lib\EvalMath|null
      */
     public function setOptions($options)
     {
