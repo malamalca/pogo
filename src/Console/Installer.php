@@ -311,10 +311,10 @@ class Installer
         $numRetries = 0;
 
         while (!$dbConnectSuccess && $numRetries < 10) {
-            $dbHost = $io->ask('<info>Enter database host ?</info> [<comment>localhost</comment>]? ', 'localhost');
-            $dbName = $io->ask('<info>Enter database name ?</info> [<comment>arhint</comment>]? ', 'arhint');
-            $dbUser = $io->ask('<info>Enter db user ?</info> ');
-            $dbPassword = $io->ask('<info>Enter db password ?</info> ');
+            $dbHost = (string)$io->ask('<info>Enter database host ?</info> ? ', 'localhost');
+            $dbName = (string)$io->ask('<info>Enter database name ?</info> ? ', 'arhint');
+            $dbUser = (string)$io->ask('<info>Enter db user ?</info> ');
+            $dbPassword = (string)$io->ask('<info>Enter db password ?</info> ');
 
             $dbConnectSuccess = static::checkDbConnection($dbHost, $dbName, $dbUser, $dbPassword, $io);
 
@@ -383,33 +383,35 @@ class Installer
             $companyTitle = $io->ask('<info>Enter Company Title ?</info> ');
             $companyTaxNo = $io->ask('<info>Enter Company Tax No. ?</info> ');
 
-            $adminPassword = (new DefaultPasswordHasher())->hash($adminPassword);
+            if (!empty($adminPassword)) {
+                $adminPassword = (new DefaultPasswordHasher())->hash($adminPassword);
 
-            $userId = Text::uuid();
+                $userId = Text::uuid();
 
-            $conn->execute(
-                'INSERT INTO users (id, name, email, username, passwd, privileges, ' .
-                    'company_title, company_taxno) VALUES ' .
-                    '(:id, :company_id, :title, :email, :username, :pass, 2, :ctitle, :ctaxno)',
-                [
-                    'id' => $userId,
-                    'title' => $adminName,
-                    'email' => $adminEmail,
-                    'username' => $adminUsername,
-                    'pass' => $adminPassword,
-                    'ctitle' => $companyTitle,
-                    'ctaxno' => $companyTaxNo
-                ],
-                [
-                    'id' => 'string',
-                    'title' => 'string',
-                    'email' => 'string',
-                    'username' => 'string',
-                    'pass' => 'string',
-                    'ctitle' => 'string',
-                    'ctaxno' => 'string',
-                ]
-            );
+                $conn->execute(
+                    'INSERT INTO users (id, name, email, username, passwd, privileges, ' .
+                        'company_title, company_taxno) VALUES ' .
+                        '(:id, :company_id, :title, :email, :username, :pass, 2, :ctitle, :ctaxno)',
+                    [
+                        'id' => $userId,
+                        'title' => $adminName,
+                        'email' => $adminEmail,
+                        'username' => $adminUsername,
+                        'pass' => $adminPassword,
+                        'ctitle' => $companyTitle,
+                        'ctaxno' => $companyTaxNo
+                    ],
+                    [
+                        'id' => 'string',
+                        'title' => 'string',
+                        'email' => 'string',
+                        'username' => 'string',
+                        'pass' => 'string',
+                        'ctitle' => 'string',
+                        'ctaxno' => 'string',
+                    ]
+                );
+            }
         } else {
             $io->writeError('Cannot connect to mysql database to create admin user');
         }
@@ -418,10 +420,10 @@ class Installer
     /**
      * Try to connect to database
      *
-     * @param string $dbHost Database host.
-     * @param string $db Database name.
-     * @param string $dbUser Mysql username.
-     * @param string $dbPassword Mysql password.
+     * @param string|null $dbHost Database host.
+     * @param string|null $db Database name.
+     * @param string|null $dbUser Mysql username.
+     * @param string|null $dbPassword Mysql password.
      * @param \Composer\IO\IOInterface $io IO interface to write to console.
      * @return bool
      */
