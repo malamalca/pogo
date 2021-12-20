@@ -38,19 +38,7 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-
-        /*
-         * Enable the following component for recommended CakePHP form protection settings.
-         * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
-         */
         $this->loadComponent('FormProtection');
-
-        /*
-         * Enable the following component for recommended CakePHP security settings.
-         * see https://book.cakephp.org/4/en/controllers/components/security.html
-         */
-        //$this->loadComponent('Security');
-
         $this->loadComponent('Authentication.Authentication');
         $this->loadComponent('Authorization.Authorization');
     }
@@ -73,8 +61,10 @@ class AppController extends Controller
      */
     public function beforeFilter(EventInterface $event)
     {
-        /** @var \App\Model\Entity\User $user */
-        $user = $this->Authentication->getIdentity();
-        $this->currentUser = $user;
+        if (isset($this->Authentication)) {
+            /** @var \App\Model\Entity\User $user */
+            $user = $this->Authentication->getIdentity();
+            $this->currentUser = $user;
+        }
     }
 }
