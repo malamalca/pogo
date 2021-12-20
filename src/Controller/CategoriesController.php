@@ -102,8 +102,6 @@ class CategoriesController extends AppController
         $category = $this->Categories->get($id);
         $this->Authorization->authorize($category, 'edit');
 
-        // http://localhost/pogo-new/categories/reorder/935887b0-c0f3-41f0-b335-e0b3b0c77b9c/1
-
         if (!empty($id) && $this->Categories->reorder($id, $position)) {
             $this->autoRender = false;
 
