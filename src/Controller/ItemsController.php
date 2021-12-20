@@ -104,7 +104,6 @@ class ItemsController extends AppController
             }
         }
         $this->set(compact('item'));
-        $this->set('_serialize', ['item']);
     }
 
     /**
@@ -121,19 +120,19 @@ class ItemsController extends AppController
 
         $this->Authorization->authorize($item);
 
-        if ($this->Items->delete($item)) {
-            $ret = true;
-            $this->Flash->success(__('The item has been deleted.'));
-        } else {
-            $ret = false;
-            $this->Flash->error(__('The item could not be deleted. Please, try again.'));
-        }
+        $result = $this->Items->delete($item);
 
         if ($this->request->is('ajax')) {
             $this->response = $this->response->withType('json');
-            $this->response = $this->response->withStringBody((string)json_encode(['result' => $ret]));
+            $this->response = $this->response->withStringBody((string)json_encode(['result' => (bool)$result]));
 
             return $this->response;
+        }
+
+        if ($result) {
+            $this->Flash->success(__('The item has been deleted.'));
+        } else {
+            $this->Flash->error(__('The item could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);
