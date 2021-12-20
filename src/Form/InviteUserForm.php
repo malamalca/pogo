@@ -33,6 +33,7 @@ class InviteUserForm extends Form
     public function validationDefault(Validator $validator): Validator
     {
         $validator->minLength('name', 10)
+            ->notEmptyString('email')
             ->email('email');
 
         return $validator;
