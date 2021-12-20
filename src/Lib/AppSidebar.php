@@ -21,7 +21,8 @@ class AppSidebar
         $currentUser = null;
 
         $eventSubject = $event->getSubject();
-        if (is_a($eventSubject, \App\View\AppView::class)) {
+
+        if (is_subclass_of($eventSubject, \App\Controller\AppController::class)) {
             $currentUser = $event->getSubject()->getCurrentUser();
         }
 
