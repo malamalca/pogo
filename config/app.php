@@ -439,7 +439,12 @@ return [
     'Lil' => [
         'layout' => 'default',
         'appTitle' => 'POGO',
-        'loginPath' => 'pogo-new/users/login',
+        'loginPath' => 'pogo/users/login',
+    ],
+
+
+    'DebugKit' => [
+        'ignoreAuthorization' => true,
     ],
 
 ];
