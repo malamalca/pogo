@@ -1,6 +1,12 @@
 <?php
+    use App\Lib\CurrentLocation;
+    use App\Lib\MainMenu;
+
+    $project = CurrentLocation::getProject();
     $projectsExport = [
-        'title_for_layout' => __('Project Export'),
+        //'title_for_layout' => __('Project Export'),
+        'title_for_layout' => (CurrentLocation::getProject())->title,
+        'menu' => MainMenu::forProject($project, $this->getCurrentUser(), ['active' => 'export']),
         'form' => [
             'defaultHelper' => $this->Form,
             'pre' => '<div class="form">',
@@ -18,7 +24,9 @@
                     ],
                 ],
 
-                'fs_basics_start' => sprintf('<fieldset><legend>%s</legend>', __('Basic options')),
+                'fs_title' => sprintf('<h2>%s</h2>', __('Basic options')),
+                //'fs_basics_start' => sprintf('<fieldset><legend>%s</legend>', __('Basic options')),
+                'fs_basics_start' => '<fieldset>',
                 'qties' => [
                     'method' => 'control',
                     'parameters' => [
@@ -30,6 +38,16 @@
                                 'all' => __('with Quantites'),
                                 'none' => __('without Quantites'),
                             ],
+                        ],
+                    ],
+                ],
+                'prices' => [
+                    'method' => 'control',
+                    'parameters' => [
+                        'field' => 'noprice',
+                        'options' => [
+                            'type' => 'checkbox',
+                            'label' => __('Export Without Item Prices'),
                         ],
                     ],
                 ],

@@ -1,6 +1,11 @@
 <?php
-    $area_edit = [
-        'title_for_layout' => __('Project Notes'),
+    use App\Lib\CurrentLocation;
+    use App\Lib\MainMenu;
+
+    $notesForm = [
+        'title_for_layout' => (CurrentLocation::getProject())->title,
+        //'title_for_layout' => __('Project Notes'),
+        'menu' => MainMenu::forProject(CurrentLocation::getProject(), $this->getCurrentUser(), ['active' => 'notes']),
         'form' => [
             'defaultHelper' => $this->Form,
             'pre' => '<div class="form">',
@@ -44,4 +49,4 @@
             ],
         ],
     ];
-    echo $this->Lil->form($area_edit, 'Projects.notes');
+    echo $this->Lil->form($notesForm, 'Projects.notes');

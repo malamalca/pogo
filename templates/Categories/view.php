@@ -1,50 +1,17 @@
 <?php
+
+use App\Lib\MainMenu;
 use Cake\Routing\Router;
 
 $category_view = [
     'title_for_layout' => h($category->title),
-    'menu' => [
-        'add' => [
-            'title' => __('Add Section', true),
-            'visible' => $this->getCurrentUser()->hasRole('editor', $category->project_id),
-            'url' => [
-                'plugin' => false,
-                'controller' => 'Sections',
-                'action' => 'edit',
-                '?' => ['category' => $category->id],
-            ],
-            'params' => [
-                'onclick' => sprintf('popup("%s", $(this).attr("href"), 600, 600); return false;', __('Add Section')),
-            ],
-        ],
-        'edit' => [
-            'title' => __('Edit', true),
-            'visible' => $this->getCurrentUser()->hasRole('editor', $category->project_id),
-            'url' => [
-                'plugin' => false,
-                'controller' => 'Categories',
-                'action' => 'edit',
-                $category->id,
-            ],
-            'params' => [
-                'onclick' => sprintf('popup("%s", $(this).attr("href"), 250); return false;', __('Edit Category')),
-            ],
-        ],
-        'delete' => [
-            'title' => __('Delete', true),
-            'visible' => $this->getCurrentUser()->hasRole('editor', $category->project_id),
-            'url' => [
-                'plugin' => false,
-                'controller' => 'Categories',
-                'action' => 'delete',
-                $category->id,
-            ],
-            'params' => [
-                'confirm' => __('Are you sure you want to delete this category?'),
-            ],
-        ],
-    ],
+    'menu' => MainMenu::forCategory($category, $this->getCurrentUser(), ['active' => 'view']),
     'panels' => [
+        'title' => [
+            'lines' => [
+                '<h2>' . __('Sections') . '</h2>',
+            ],
+        ],
         'sections' => [
             'params' => ['class' => 'dashboard-category'],
             'lines' => [],

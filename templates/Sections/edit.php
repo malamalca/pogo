@@ -1,12 +1,21 @@
 <?php
+
+use App\Lib\MainMenu;
+use App\Lib\PogoExport;
+
 $section_edit = [
     'title_for_layout' =>
-        $section->isNew() ? __('Add Section') : __('Edit Section'),
+        $section->isNew() ? $category->title : h(PogoExport::rome($section->sort_order) . '. ' . $section->title),
+        //$section->isNew() ? __('Add Section') : __('Edit Section'),
+    'menu' => $section->isNew() ?
+        MainMenu::forCategory($category, $this->getCurrentUser(), ['active' => 'add-section']) :
+        MainMenu::forSection($section, $category, $this->getCurrentUser(), ['active' => 'edit']),
     'form' => [
         'defaultHelper' => $this->Form,
         'pre' => '<div class="form">',
         'post' => '</div>',
         'lines' => [
+            'page_title' => '<h2>' . ($section->isNew() ? __('Add Section') : __('Edit Section')) . '</h2>',
             'form_start' => [
                 'method' => 'create',
                 'parameters' => [$section]
@@ -23,6 +32,8 @@ $section_edit = [
                 'method' => 'hidden',
                 'parameters' => ['field' => 'referer']
             ],
+
+            'fs_start' => '<fieldset>',
 
             'title' => [
                 'method' => 'control',
@@ -45,6 +56,8 @@ $section_edit = [
                     ]
                 ]
             ],
+
+            'fs_end' => '</fieldset>',
 
             'submit' => [
                 'method' => 'submit',

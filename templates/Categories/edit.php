@@ -1,12 +1,19 @@
 <?php
+
+use App\Lib\MainMenu;
+
 $form = [
     'title_for_layout' =>
-        $category->isNew() ? __('Add Category') : __('Edit Category'),
+        $category->isNew() ? $project->title : $category->title,
+    'menu' => $category->isNew() ?
+        MainMenu::forProject($project, $this->getCurrentUser(), ['active' => 'add-category']) :
+        MainMenu::forCategory($category, $this->getCurrentUser(), ['active' => 'edit']),
     'form' => [
         'defaultHelper' => $this->Form,
         'pre' => '<div class="form">',
         'post' => '</div>',
         'lines' => [
+            'page_title' => '<h2>' . ($category->isNew() ? __('Add Category') : __('Edit Category')) . '</h2>',
             'form_start' => [
                 'method' => 'create',
                 'parameters' => [$category],

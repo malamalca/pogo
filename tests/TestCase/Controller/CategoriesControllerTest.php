@@ -45,8 +45,10 @@ class CategoriesControllerTest extends IntegrationTestCase
     public function testView()
     {
         // without user
+        //$this->disableErrorHandlerMiddleware();
         $this->get('/categories/view/e208eb93-1c4e-4bee-87d7-200370217a5e');
         $this->assertRedirect();
+        //$this->expectException(\Cake\Http\Exception\NotFoundException::class);
 
         // user login
         $this->login();

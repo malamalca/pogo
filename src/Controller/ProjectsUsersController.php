@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Form\InviteUserForm;
 use App\Lib\CurrentLocation;
+use Cake\ORM\TableRegistry;
 
 /**
  * ProjectsUsers Controller
@@ -22,10 +23,14 @@ class ProjectsUsersController extends AppController
      */
     public function index($projectId)
     {
-        $project = $this->ProjectsUsers->Projects->get($projectId);
+        /** @var \App\Model\Table\ProjectsTable $Projects */
+        $Projects = TableRegistry::get('Projects');
+
+        $project = $Projects->get($projectId);
+
         $this->Authorization->authorize($project, 'viewUsers');
 
-        CurrentLocation::set($projectId);
+        CurrentLocation::set($project);
 
         $projectsUsers = $this->ProjectsUsers->find()
             ->where(['project_id' => $projectId])
@@ -49,7 +54,7 @@ class ProjectsUsersController extends AppController
         $project = $this->ProjectsUsers->Projects->get($projectId);
         $this->Authorization->authorize($project, 'editUsers');
 
-        CurrentLocation::set($projectId);
+        CurrentLocation::set($project);
 
         $form = new InviteUserForm();
         if ($this->request->is(['post', 'put'])) {

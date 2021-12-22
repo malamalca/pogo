@@ -1,4 +1,6 @@
 <?php
+use App\Lib\CurrentLocation;
+use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Routing\Router;
 ?>
@@ -28,85 +30,70 @@ use Cake\Routing\Router;
 </head>
 <body>
     <header>
-        <div class="navbar-fixed">
-            <nav role="navigation">
-                <div class="nav-wrapper container">
-                    <a id="logo-container" href="#" class="brand-logo">
-                        <div class="logo center-block"><?= Configure::read('Lil.appTitle') ?></div>
-                    </a>
-                    <div class="hide-on-med-and-down">
-                        <?= $this->element('mainmenu', ['prefix' => 'top']) ?>
-                    </div>
-                    <!-- Sidebar button for mobile devices -->
-                    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <?php
+            /** Determine project title */
+            $currentProject = CurrentLocation::getProject();
+            if ($currentProject) {
+                $currentProjectLink = $this->Html->link(
+                    $currentProject->title,
+                    ['controller' => 'Projects', 'action' => 'view', $currentProject->id],
+                    ['escape' => false, 'class' => 'brand-logo left']
+                );
+            }
+
+            /** Current user link and popup */
+            $currentUser = $this->getCurrentUser();
+            if ($currentUser) {
+                $currentUserLink = $this->Html->link(
+                    $this->getCurrentUser()->get('name'),
+                    '#!',
+                    ['escape' => false, 'class' => 'user-avatar dropdown-trigger', 'data-target' => 'current-user-actions']
+                );
+        ?>
+                <ul id="current-user-actions" class="dropdown-content">
+                    <li><?= $this->Html->link(__('Settings'), ['plugin' => false, 'controller' => 'Users', 'action' => 'properties']) ?></li>
+                    <li class="divider"></li>
+                    <li><?= $this->Html->link(__('Logout'), ['plugin' => false, 'controller' => 'Users', 'action' => 'logout']) ?></li>
+                </ul>
+        <?php
+            } // currentUser
+
+            /** Breadcrumbs */
+            $breadCrumbs = [];
+            $breadCrumbs[] = $this->Html->link('Pogo.si', '/', ['class' => 'breadcrumb']);
+            if ($currentCategory = CurrentLocation::getCategory()) {
+                $breadCrumbs[] = $this->Html->link(
+                    $currentProject->title,
+                    ['controller' => 'Projects', 'action' => 'view', $currentCategory->project_id],
+                    ['class' => 'breadcrumb']
+                );
+            }
+            if ($currentCategory && $section = CurrentLocation::getSection()) {
+                $breadCrumbs[] = $this->Html->link(
+                    $currentCategory->title,
+                    ['controller' => 'Categories', 'action' => 'view', $currentCategory->id],
+                    ['class' => 'breadcrumb']
+                );
+            }
+        ?>
+
+        <nav class="">
+            <div class="nav-wrapper">
+                <div class="row">
+                    <div class="nav-title-sub col s9 no-wrap truncate"><?= implode(PHP_EOL, $breadCrumbs) ?></div>
+                    <div class="col s3 right-align no-wrap truncate"><?= $currentUserLink ?></div>
                 </div>
-            </nav>
+                <div class="brand-logo no-wrap truncate"><?= $this->fetch('title') ?? 'POGO.si' ?></div>
+
+                <?= $this->element('main_menu', ['prefix' => 'top']) ?>
             </div>
-            <?php
-                if ($this->getCurrentUser()) {
-            ?>
-            <ul id="slide-out" class="sidenav sidenav-fixed">
-                <!-- Sidebar -->
-                <li class="sidenav-user">
-                    <?= $this->Html->link(
-                        $this->Html->image(
-                            Router::url(
-                                [
-                                    'plugin' => false,
-                                    'controller' => 'Users',
-                                    'action' => 'avatar',
-                                    $this->getCurrentUser() ? $this->getCurrentUser()->get('id') : null,
-                                    '_ext' => 'png',
-                                ],
-                                true
-                            ),
-                            ['class' => 'circle']
-                        ),
-                        '/',
-                        ['escape' => false, 'class' => 'user-avatar']
-                    ) ?>
-                    <?php
-                    if ($this->getCurrentUser() && $this->getCurrentUser()->get('id')) {
-                        $isUserProperties = $this->getRequest()->getParam('controller') == 'Users' &&
-                            $this->getRequest()->getParam('action') == 'properties';
-                        ?>
-                    <div class="sidenav-user-title"><?= h($this->getCurrentUser()->get('name')) ?></div>
-                    <ul class="collection" id="user-settings" style="display: <?= $isUserProperties ? 'default' : 'none' ?>">
-                        <li class="<?= $isUserProperties ? 'active' : '' ?>">
-                            <?= $this->Html->link(__('Settings'), ['plugin' => false, 'controller' => 'Users', 'action' => 'properties']) ?>
-                        </li>
-                        <li><?= $this->Html->link(__('Logout'), ['plugin' => false, 'controller' => 'Users', 'action' => 'logout']) ?></li>
-                    </ul>
-                        <?php
-                    }
-                    ?>
-                </li>
-                <!--<li class="sidenav-header"><?= $this->Html->link(Configure::read('Lil.appTitle'), '/') ?></a></li>-->
-                <li class="sidenav-menu no-padding hide-on-large-only">
-                    <?= $this->element('mainmenu', ['prefix' => 'side']) ?>
-                </li>
-                <li class="sidenav-menu no-padding">
-                    <?= $this->element('sidenav') ?>
-                </li>
-            </ul>
-            <?php
-               }
-            ?>
+        </nav>
     </header>
 
     <!-- Contents -->
     <main>
         <div class="container">
             <?= $this->Flash->render() ?>
-
-            <?php
-            if ($title = $this->fetch('title')) {
-                if ($title != '&nbsp;') {
-                    printf('<h2>%s</h2>', $title);
-                }
-            }
-            ?>
-
             <?= $this->fetch('content') ?>
             <br /><br />
         </div>

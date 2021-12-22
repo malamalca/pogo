@@ -258,14 +258,18 @@ class CategoriesTable extends Table
     public function getCached($categoryId)
     {
         $category = false;
+        $project = CurrentLocation::getProject();
 
-        $projectCategories = Cache::read('project-categories-' . CurrentLocation::getProject());
+        $projectCategories = null;
+        if ($project) {
+            $projectCategories = Cache::read('project-categories-' . $project->id);
 
-        if ($projectCategories) {
-            foreach ($projectCategories as $cat) {
-                if ($cat->id == $categoryId) {
-                    $category = $cat;
-                    break;
+            if ($projectCategories) {
+                foreach ($projectCategories as $cat) {
+                    if ($cat->id == $categoryId) {
+                        $category = $cat;
+                        break;
+                    }
                 }
             }
         }

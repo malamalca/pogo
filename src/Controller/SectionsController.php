@@ -30,7 +30,10 @@ class SectionsController extends AppController
 
         $this->Authorization->authorize($section);
 
-        CurrentLocation::set($category->project_id, $category->id, $section->id);
+        /** @var \App\Model\Table\ProjectsTable $Projects */
+        $Projects = TableRegistry::get('Projects');
+
+        CurrentLocation::set($Projects->get($category->project_id), $category, $section);
 
         $this->set(compact('section', 'category'));
     }
@@ -57,6 +60,15 @@ class SectionsController extends AppController
         }
         $category = $this->Sections->Categories->get($section->category_id);
 
+        /** @var \App\Model\Table\ProjectsTable $ProjectsTable */
+        $ProjectsTable = TableRegistry::get('Projects');
+
+        CurrentLocation::set(
+            $ProjectsTable->get($category->project_id),
+            $category,
+            $section->isNew() ? null : $section
+        );
+
         $this->Authorization->authorize($section);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -69,8 +81,6 @@ class SectionsController extends AppController
                 $this->Flash->error(__('The section could not be saved. Please, try again.'));
             }
         }
-
-        CurrentLocation::set($category->project_id, $section->category_id, $section->id);
 
         $this->set(compact('section', 'category'));
     }

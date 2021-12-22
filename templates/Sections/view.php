@@ -1,38 +1,11 @@
 <?php
+use App\Lib\MainMenu;
 use App\Lib\PogoExport;
 use Cake\Routing\Router;
 
-$section_view = [
-    'title_for_layout' => sprintf(
-        '<span id="view-section-title">%s</span>',
-        h(chr(64 + $category->sort_order) . '. ' . $category->title)
-    ) . ' ' .
-        h(PogoExport::rome($section->sort_order) . '. ' . $section->title),
-    'menu' => [
-        'add' => [
-            'title'   => __('Edit', true),
-            'visible' => $this->getCurrentUser()->hasRole('editor', $category->project_id),
-            'url'     => [
-                'plugin'     => false,
-                'controller' => 'sections',
-                'action' => 'edit',
-                $section->id,
-            ]
-        ],
-        'delete' => [
-            'title'   => __('Delete', true),
-            'visible' => $this->getCurrentUser()->hasRole('editor', $category->project_id),
-            'url'     => [
-                'plugin'     => false,
-                'controller' => 'sections',
-                'action' => 'delete',
-                $section->id,
-            ],
-            'params' => [
-                'confirm' => __('Are you sure you want to delete this section?')
-            ]
-        ],
-    ],
+$sectionView = [
+    'title_for_layout' => h(PogoExport::rome($section->sort_order) . '. ' . $section->title),
+    'menu' => MainMenu::forSection($section, $category, $this->getCurrentUser()),
     'panels' => [
         'descript' => empty($data['Section']['descript']) ? null : [
             'params' => ['id' => 'view-section-descript'],
@@ -144,17 +117,17 @@ $tbl_tpl = '<table class="view-section-item" id="tblitm%1$s"><tr>' .
     '<td class="col-item col-item-total">%6$s</td>' .
     '</tr>%8$s</table>';
 
-$section_view['panels']['items']['params']['id'] = 'view-section-items';
+$sectionView['panels']['items']['params']['id'] = 'view-section-items';
 
 // show add item only if user is editor
 if ($this->getCurrentUser()->hasRole('editor', $category->project_id)) {
-    $section_view['panels']['items']['lines'][] = str_replace('__order__', 1, $add_item_tpl);
+    $sectionView['panels']['items']['lines'][] = str_replace('__order__', 1, $add_item_tpl);
 }
 
 $j = 2;
 $total = 0;
 
-$section_view['panels']['items']['lines']['items_start'] = '<ul id="view-section-sortable">';
+$sectionView['panels']['items']['lines']['items_start'] = '<ul id="view-section-sortable">';
 if (!empty($section->items)) {
     $qtys = [
         'm^1' => 'm<sup>1</sup>',
@@ -163,9 +136,9 @@ if (!empty($section->items)) {
     ];
 
     foreach ($section->items as $item) {
-        $section_view['panels']['items']['lines'][] = sprintf('<li id="itm%s">', $item->id);
+        $sectionView['panels']['items']['lines'][] = sprintf('<li id="itm%s">', $item->id);
 
-        $section_view['panels']['items']['lines'][] = sprintf($tbl_tpl,
+        $sectionView['panels']['items']['lines'][] = sprintf($tbl_tpl,
             $item->sort_order,
             nl2br(h($item->descript)),
             isset($qtys[$item->unit]) ? $qtys[$item->unit] : h($item->unit),
@@ -185,19 +158,19 @@ if (!empty($section->items)) {
 
         // show add item only if user is editor
         if ($this->getCurrentUser()->hasRole('editor', $category->project_id)) {
-            $section_view['panels']['items']['lines'][] = str_replace('__order__', $j, $add_item_tpl);
+            $sectionView['panels']['items']['lines'][] = str_replace('__order__', $j, $add_item_tpl);
         }
 
-        $section_view['panels']['items']['lines'][] = '</li>';
+        $sectionView['panels']['items']['lines'][] = '</li>';
 
         $total += round($item->qty * $item->price, 2);
         $j++;
     }
 }
 
-$section_view['panels']['items']['lines']['items_end'] = '</ul>';
+$sectionView['panels']['items']['lines']['items_end'] = '</ul>';
 
-$section_view['panels']['items']['lines']['footer'] = sprintf(
+$sectionView['panels']['items']['lines']['footer'] = sprintf(
     '<table id="view-section-footer"><tr>' .
     '<th class="col-item-caption-total">%1$s:</th>' .
     '<th class="col-item-grand-total">%2$s</th>' .
@@ -206,12 +179,12 @@ $section_view['panels']['items']['lines']['footer'] = sprintf(
     $this->Number->precision((float)$total, 2)
 );
 
-$section_view['panels']['items']['lines']['editor'] =
+$sectionView['panels']['items']['lines']['editor'] =
     $this->element('item_editor', [
         'tbl_tpl' => $tbl_tpl, 'item_editor' => [], 'section_id' => $section->id
     ]);
 
-echo $this->Lil->panels($section_view);
+echo $this->Lil->panels($sectionView);
 
 echo $this->Html->script('jquery.autogrow-textarea');
 echo $this->Html->script('item-editor');

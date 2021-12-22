@@ -32,9 +32,34 @@ textarea {
     background-color: #ffffff !important;
 }
 
-/* sidebar */
-main, footer, nav {
-    padding-left: 300px !important;
+nav {
+    height: 90px;
+}
+
+.nav-wrapper {
+    @extend .container;
+    div {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: auto;
+        line-height: normal;
+    }
+}
+
+ul#main-menu {
+    margin-top: 45px;
+
+    li {
+        padding-top: 0;
+        line-height: normal;
+
+        i.material-icons {
+            padding-top: 0;
+            height: auto;
+            line-height: normal;
+            margin-left: 3px;
+        }
+    }
 }
 
 @media #{$small-and-down} {
@@ -48,20 +73,6 @@ main, footer, nav {
     }
 }
 
-@media #{$large-and-up} {
-    main {
-        & > div.container {
-            width: calc(100% - 80px);
-        }
-    }
-
-
-    nav {
-        & > div.nav-wrapper {
-            width: calc(100% - 80px);
-        }
-    }
-}
 
 @media only print, screen and (max-width : 992px) {
     main, footer, nav {
@@ -73,100 +84,9 @@ main, footer, nav {
     }
 
 }
-@media only print {
-    .sidenav-trigger {
-        display: none;
-    }
-}
 
-.brand-logo {
-    @extend .hide-on-large-only !optional;
-}
-
-ul.main-menu {
-    width: auto !important;
-}
-
-.sidenav {
-    @media print {
-        display: none;
-    }
-
-    .sidenav-user {
-        @extend .center-align !optional;
-
-        a.user-avatar {
-            height: 110px !important;
-            padding: 0 !important;
-
-            img {
-                width: 90px;
-                height: 90px;
-                cursor: pointer;
-                margin: 0px;
-                margin-top: 12px;
-            }
-        }
-
-
-        div {
-            display: block;
-            line-height: 20px;
-            height: 20px;
-            padding: 0px;
-            margin-top: 0px;
-            margin-bottom: 12px;
-        }
-    }
-
-    .sidenav-header {
-        text-transform: uppercase;
-        border-bottom: solid 1px #c0c0c0;
-        background-color: #e0e0e0 !important;
-    }
-    .sidenav-menu {
-        .chevron {
-            margin: 0px;
-        }
-
-        ul.collapsible {
-            li {
-                width: 100%;
-
-                a {
-                    font-size: 0.95rem;
-                }
-
-                .collapsible-header {
-                    .chevron {
-                        float: right;
-                    }
-                }
-
-                .sidenav-header {
-                    font-weight: bold;
-                }
-            }
-
-            li.active {
-                .sidenav-header {
-                    color: white !important;
-                    font-weight: bold;
-                    background-color: $secondary-color !important;
-                    text-shadow: 1px 1px black;
-                }
-            }
-        }
-    }
-
-    .sidenav-submenu {
-        li {
-            a {
-                font-size: 0.9rem !important;
-                font-weight: normal !important;
-            }
-        }
-    }
+.user-avatar {
+    font-size: 18px;
 }
 
 .modal {
@@ -301,4 +221,8 @@ ul.paginator {
     li.active {
         border: solid 1px #c0c0c0 !important;
     }
+}
+
+textarea#notes {
+    min-height: 200px;
 }

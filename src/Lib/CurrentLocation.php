@@ -15,28 +15,19 @@ class CurrentLocation
     private static $instance = null;
 
     /**
-     * @var string|null $projectId
+     * @var \App\Model\Entity\Project|null $project
      */
-    protected $projectId = null;
+    protected $project = null;
 
     /**
-     * @var string|null $categoryId
+     * @var \App\Model\Entity\Category|null $category
      */
-    protected $categoryId = null;
+    protected $category = null;
 
     /**
-     * @var string|null $sectionId
+     * @var \App\Model\Entity\Section|null $section
      */
-    protected $sectionId = null;
-
-    /**
-     * Initialization hook method.
-     *
-     * @return void
-     */
-    protected function __construct()
-    {
-    }
+    protected $section = null;
 
     /**
      * Singletons should not be cloneable.
@@ -60,39 +51,39 @@ class CurrentLocation
     /**
      * Set project, category and section
      *
-     * @param string|null $projectId Project id.
-     * @param string|null $categoryId Category id.
-     * @param string|null $sectionId Project id.
+     * @param \App\Model\Entity\Project|null $project Project.
+     * @param \App\Model\Entity\Category|null $category Category.
+     * @param \App\Model\Entity\Section|null $section Section.
      * @return void
      */
-    public static function set($projectId = null, $categoryId = null, $sectionId = null)
+    public static function set($project = null, $category = null, $section = null)
     {
         if (static::$instance === null) {
             static::$instance = new CurrentLocation();
         }
-        static::$instance->projectId = $projectId;
-        static::$instance->categoryId = $categoryId;
-        static::$instance->sectionId = $sectionId;
+        static::$instance->project = $project;
+        static::$instance->category = $category;
+        static::$instance->section = $section;
     }
 
     /**
      * Set project
      *
-     * @param string|null $projectId Project id.
+     * @param \App\Model\Entity\Project|null $project Project.
      * @return void
      */
-    public static function setProject($projectId = null)
+    public static function setProject($project = null)
     {
         if (static::$instance === null) {
             static::$instance = new CurrentLocation();
         }
-        static::$instance->projectId = $projectId;
+        static::$instance->project = $project;
     }
 
     /**
      * Get project
      *
-     * @return null|string
+     * @return \App\Model\Entity\Project|null
      */
     public static function getProject()
     {
@@ -100,27 +91,27 @@ class CurrentLocation
             return null;
         }
 
-        return static::$instance->projectId;
+        return static::$instance->project;
     }
 
     /**
      * Set category
      *
-     * @param string $categoryId Category id.
+     * @param \App\Model\Entity\Category $category Category.
      * @return void
      */
-    public static function setCategory($categoryId)
+    public static function setCategory($category)
     {
         if (static::$instance === null) {
             static::$instance = new CurrentLocation();
         }
-        static::$instance->categoryId = $categoryId;
+        static::$instance->category = $category;
     }
 
     /**
      * Get category
      *
-     * @return null|string
+     * @return \App\Model\Entity\Category|null
      */
     public static function getCategory()
     {
@@ -128,27 +119,27 @@ class CurrentLocation
             return null;
         }
 
-        return static::$instance->categoryId;
+        return static::$instance->category;
     }
 
     /**
      * Set section
      *
-     * @param string $sectionId Section id.
+     * @param \App\Model\Entity\Section $section Section.
      * @return void
      */
-    public static function setSection($sectionId)
+    public static function setSection($section)
     {
         if (static::$instance === null) {
             static::$instance = new CurrentLocation();
         }
-        static::$instance->sectionId = $sectionId;
+        static::$instance->section = $section;
     }
 
     /**
      * Get category
      *
-     * @return null|string
+     * @return \App\Model\Entity\Section|null
      */
     public static function getSection()
     {
@@ -156,6 +147,6 @@ class CurrentLocation
             return null;
         }
 
-        return static::$instance->sectionId;
+        return static::$instance->section;
     }
 }

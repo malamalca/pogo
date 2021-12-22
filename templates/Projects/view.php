@@ -1,78 +1,11 @@
 <?php
 use App\Lib\PogoExport;
+use App\Lib\MainMenu;
 use Cake\Routing\Router;
 
 $project_view = [
     'title_for_layout' => h($project->title),
-    'menu' => [
-        'edit' => [
-            'title' => __('Edit'),
-            'visible' => $project->active && $this->getCurrentUser()->hasRole('admin', $project->id),
-            'url' => [
-                'controller' => 'Projects',
-                'action' => 'edit',
-                $project->id,
-            ],
-        ],
-        /*'clone' => [
-            'title' => __('Clone'),
-            'visible' => $this->getCurrentUser()->hasRole('editor', $project->id),
-            'url'   => [
-                'controller' => 'Projects',
-                'action' => 'clone',
-                $project->id
-            ],
-            'params' => [
-                'confirm' => __('Are you sure you want to clone this project?')
-            ]
-        ],*/
-        'delete' => [
-            'title' => __('Delete'),
-            'visible' => $project->active && $this->getCurrentUser()->hasRole('admin', $project->id),
-            'url' => [
-                'controller' => 'Projects',
-                'action' => 'delete',
-                $project->id,
-            ],
-            'params' => [
-                'confirm' => __('Are you sure you want to delete this project?'),
-            ],
-        ],
-        'archive' => [
-            'title' => $project->active ? __('Archive') : __('Unarchive'),
-            'visible' => $this->getCurrentUser()->hasRole('editor', $project->id),
-            'url' => [
-                'controller' => 'Projects',
-                'action' => 'toggleArchive',
-                $project->id,
-            ],
-            'params' => [
-                'confirm' => __('Are You Sure?'),
-            ],
-        ],
-        'add' => [
-            'title' => __('Add Category'),
-            'visible' => $project->active && $this->getCurrentUser()->hasRole('editor', $project->id),
-            'url' => [
-                'controller' => 'Categories',
-                'action' => 'edit',
-                '?' => ['project' => $project->id],
-            ],
-            'params' => [
-                'id' => 'MenuItemAddCategory',
-                //'onclick' => sprintf('popup("%s", $(this).attr("href"), 240); return false;', __('Add Category')),
-            ],
-        ],
-        'export' => [
-            'title' => __('Export to XLS'),
-            'visible' => true,
-            'url' => [
-                'controller' => 'Projects',
-                'action' => 'export',
-                $project->id,
-            ],
-        ],
-    ],
+    'menu' => MainMenu::forProject($project, $this->getCurrentUser()),
     'panels' => [
         'investor' => [
             'params' => ['id' => 'dashboard-investor'],

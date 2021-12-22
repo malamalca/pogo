@@ -43,7 +43,7 @@ class ProjectsController extends AppController
 
         $categories = $this->Projects->Categories->findForProject($id);
 
-        CurrentLocation::setProject($id);
+        CurrentLocation::setProject($project);
         $this->set(compact('project', 'categories'));
     }
 
@@ -82,7 +82,7 @@ class ProjectsController extends AppController
             $this->Flash->error(__('Unable to update your project.'));
         }
 
-        CurrentLocation::setProject($id);
+        CurrentLocation::setProject($project);
         $this->set(compact('project'));
     }
 
@@ -131,7 +131,7 @@ class ProjectsController extends AppController
             }
         }
 
-        CurrentLocation::setProject($id);
+        CurrentLocation::setProject($project);
         $this->set(compact('project'));
     }
 
@@ -163,11 +163,9 @@ class ProjectsController extends AppController
         $project = $this->Projects->get($id);
         $this->Authorization->authorize($project);
 
-        CurrentLocation::setProject($id);
+        CurrentLocation::setProject($project);
 
         if (empty($this->request->getQuery('type'))) {
-            CurrentLocation::setProject($id);
-
             $tags = TableRegistry::get('QtiesTags')->find()
                 ->select()
                 ->distinct('tag')
@@ -190,7 +188,7 @@ class ProjectsController extends AppController
             if ($this->request->getQuery('qties') == 'all') {
                 $filter['qties'] = true;
             }
-            if ($this->request->getQuery('noprice') == '1') {
+            if ($this->request->getQuery('noprice')) {
                 $filter['noprice'] = true;
             }
 

@@ -124,7 +124,7 @@ class ItemsController extends AppController
 
         if ($this->request->is('ajax')) {
             $this->response = $this->response->withType('json');
-            $this->response = $this->response->withStringBody((string)json_encode(['result' => (bool)$result]));
+            $this->response = $this->response->withStringBody((string)json_encode(['result' => $result]));
 
             return $this->response;
         }

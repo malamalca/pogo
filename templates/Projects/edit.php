@@ -1,12 +1,17 @@
 <?php
-    $area_edit = [
-        'title_for_layout' =>
-            $project->isNew() ? __('Add a Project') : __('Project Properties'),
+    use App\Lib\CurrentLocation;
+    use App\Lib\MainMenu;
+
+    $editProject = [
+        'title_for_layout' => (CurrentLocation::getProject())->title ?? __('Add a Project'),
+            //$project->isNew() ? __('Add a Project') : __('Project Properties'),
+        'menu' => MainMenu::forProject(CurrentLocation::getProject(), $this->getCurrentUser(), ['active' => 'edit']),
         'form' => [
             'defaultHelper' => $this->Form,
             'pre' => '<div class="form">',
             'post' => '</div>',
             'lines' => [
+                'page_title' => '<h2>' . __('Project Properties') . '</h2>',
                 'form_start' => [
                     'method' => 'create',
                     'parameters' => [$project],
@@ -24,7 +29,7 @@
                     'parameters' => ['active', ['default' => true]],
                 ],
 
-                'fs_basics_start' => sprintf('<fieldset><legend>%s</legend>', __('Basic data')),
+                'fs_basics_start' => sprintf('<fieldset>'),
                 'no' => [
                     'method' => 'control',
                     'parameters' => [
@@ -178,4 +183,4 @@
             ],
         ],
     ];
-    echo $this->Lil->form($area_edit, 'Projects.edit');
+    echo $this->Lil->form($editProject, 'Projects.edit');

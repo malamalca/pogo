@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Lib\CurrentLocation;
+use Cake\ORM\TableRegistry;
 
 /**
  * Categories Controller
@@ -22,9 +23,15 @@ class CategoriesController extends AppController
     public function view($id)
     {
         $category = $this->Categories->getCached($id);
+        if (empty($category)) {
+            throw new \Cake\Http\Exception\NotFoundException();
+        }
         $this->Authorization->authorize($category);
 
-        CurrentLocation::set($category->project_id, $category->id);
+        /** @var \App\Model\Table\ProjectsTable $Projects */
+        $Projects = TableRegistry::get('Projects');
+
+        CurrentLocation::set($Projects->get($category->project_id), $category);
 
         $sections = $this->Categories->Sections->findForCategory($category);
 
@@ -64,9 +71,13 @@ class CategoriesController extends AppController
             }
         }
 
-        CurrentLocation::set($category->project_id, $category->id);
+        /** @var \App\Model\Table\ProjectsTable $ProjectsTable */
+        $ProjectsTable = TableRegistry::get('Projects');
+        $project = $ProjectsTable->get($category->project_id);
 
-        $this->set(compact('category'));
+        CurrentLocation::set($project, $category->isNew() ? null : $category);
+
+        $this->set(compact('category', 'project'));
     }
 
     /**
