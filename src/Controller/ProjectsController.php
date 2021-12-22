@@ -188,8 +188,12 @@ class ProjectsController extends AppController
             if (!empty($this->request->getQuery('hashtags'))) {
                 $filter['tag'] = (array)$this->request->getQuery('hashtags');
             }
+            if (!empty($this->request->getQuery('protect'))) {
+                $filter['password'] = $this->request->getQuery('passwd');
+            }
             $filter['qties'] = $this->request->getQuery('qties') !== 'none';
             $filter['noprice'] = (bool)$this->request->getQuery('noprice');
+            $filter['accentprice'] = (bool)$this->request->getQuery('accentprice');
 
             $this->autoRender = false;
 

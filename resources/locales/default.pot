@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2021-12-22 10:39+0000\n"
+"POT-Creation-Date: 2021-12-22 13:29+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -62,7 +62,7 @@ msgstr ""
 msgid "Your project has been deleted."
 msgstr ""
 
-#: ./src/Controller/ProjectsController.php:178
+#: ./src/Controller/ProjectsController.php:181
 msgid "Invalid export file type."
 msgstr ""
 
@@ -247,79 +247,79 @@ msgstr ""
 msgid "Are you sure you want to delete this category?"
 msgstr ""
 
-#: ./src/Lib/PogoExport.php:86
+#: ./src/Lib/PogoExport.php:90
 msgid "www.pogo.si"
 msgstr ""
 
-#: ./src/Lib/PogoExport.php:89
+#: ./src/Lib/PogoExport.php:93
 msgid "Builing estimates and calculations"
 msgstr ""
 
-#: ./src/Lib/PogoExport.php:99
-#: ./src/Lib/PogoExport.php:102
-#: ./src/Lib/PogoExport.php:182
-msgid "Page %1$s of %2$s"
+#: ./src/Lib/PogoExport.php:103
+#: ./src/Lib/PogoExport.php:106
+#: ./src/Lib/PogoExport.php:195
+msgid "Page {0} of {1}"
 msgstr ""
 
-#: ./src/Lib/PogoExport.php:106
-#: ./src/Lib/PogoExport.php:123
+#: ./src/Lib/PogoExport.php:110
+#: ./src/Lib/PogoExport.php:131
 msgid "Recapitulation"
 msgstr ""
 
-#: ./src/Lib/PogoExport.php:109
+#: ./src/Lib/PogoExport.php:113
 msgid "Project"
 msgstr ""
 
-#: ./src/Lib/PogoExport.php:115
+#: ./src/Lib/PogoExport.php:119
 #: ./templates/Projects/view.php:13
 msgid "Investor"
 msgstr ""
 
-#: ./src/Lib/PogoExport.php:215
+#: ./src/Lib/PogoExport.php:228
 msgid "No."
 msgstr ""
 
-#: ./src/Lib/PogoExport.php:216
+#: ./src/Lib/PogoExport.php:229
 #: ./templates/Projects/edit.php:69
 #: ./templates/Sections/edit.php:54
 #: ./templates/Sections/view.php:26
 msgid "Description"
 msgstr ""
 
-#: ./src/Lib/PogoExport.php:217
+#: ./src/Lib/PogoExport.php:230
 #: ./templates/Sections/view.php:27
 msgid "Unit"
 msgstr ""
 
-#: ./src/Lib/PogoExport.php:218
+#: ./src/Lib/PogoExport.php:231
 #: ./templates/Sections/view.php:28
 #: ./templates/element/item_editor.php:28
 msgid "Qty"
 msgstr ""
 
-#: ./src/Lib/PogoExport.php:222
+#: ./src/Lib/PogoExport.php:235
 msgid "Price [{0}]"
 msgstr ""
 
-#: ./src/Lib/PogoExport.php:226
+#: ./src/Lib/PogoExport.php:239
 msgid "Total [{0}]"
 msgstr ""
 
-#: ./src/Lib/PogoExport.php:367
+#: ./src/Lib/PogoExport.php:403
 msgid "Grand total"
 msgstr ""
 
-#: ./src/Lib/PogoExport.php:399
+#: ./src/Lib/PogoExport.php:444
 #: ./templates/Sections/view.php:178
 msgid "Grand Total"
 msgstr ""
 
-#: ./src/Lib/PogoExport.php:429
+#: ./src/Lib/PogoExport.php:474
 #: ./templates/Projects/edit.php:130
 msgid "Project Leader"
 msgstr ""
 
-#: ./src/Lib/PogoExport.php:461
+#: ./src/Lib/PogoExport.php:515
 msgid "Export error: No data found."
 msgstr ""
 
@@ -476,11 +476,31 @@ msgstr ""
 msgid "Export Without Item Prices"
 msgstr ""
 
-#: ./templates/Projects/export.php:56
+#: ./templates/Projects/export.php:57
+msgid "Mark Price Field as Input"
+msgstr ""
+
+#: ./templates/Projects/export.php:67
+msgid "Export only selected Categories"
+msgstr ""
+
+#: ./templates/Projects/export.php:80
+#: ./templates/Projects/export.php:118
 msgid "Tags"
 msgstr ""
 
-#: ./templates/Projects/export.php:68
+#: ./templates/Projects/export.php:94
+msgid "Password Protect Worksheet"
+msgstr ""
+
+#: ./templates/Projects/export.php:107
+#: ./templates/Users/edit.php:87
+#: ./templates/Users/login.php:29
+#: ./templates/Users/properties.php:76
+msgid "Password"
+msgstr ""
+
+#: ./templates/Projects/export.php:131
 msgid "Export"
 msgstr ""
 
@@ -623,12 +643,6 @@ msgstr ""
 #: ./templates/Users/login.php:19
 #: ./templates/Users/view.php:30
 msgid "Username"
-msgstr ""
-
-#: ./templates/Users/edit.php:87
-#: ./templates/Users/login.php:29
-#: ./templates/Users/properties.php:76
-msgid "Password"
 msgstr ""
 
 #: ./templates/Users/index.php:3

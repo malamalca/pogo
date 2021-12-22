@@ -100,10 +100,10 @@ class PogoExport
 
                     // header and footer
                     $activeSheet->getHeaderFooter()->setOddFooter(
-                        '&L' . $objPHPExcel->getProperties()->getTitle() . '&R' . __('Page %1$s of %2$s', '&P', '&N')
+                        '&L' . $objPHPExcel->getProperties()->getTitle() . '&R' . __('Page {0} of {1}', '&P', '&N')
                     );
                     $activeSheet->getHeaderFooter()->setEvenFooter(
-                        '&L' . $objPHPExcel->getProperties()->getTitle() . '&R' . __('Page %1$s of %2$s', '&P', '&N')
+                        '&L' . $objPHPExcel->getProperties()->getTitle() . '&R' . __('Page {0} of {1}', '&P', '&N')
                     );
 
                     // title
@@ -124,13 +124,20 @@ class PogoExport
                     $activeSheet->SetCellValue('A7', $project->investor_zip . ' ' . $project->investor_post);
 
                     // contents
-                    $activeSheet->SetCellValue('A10', __('Recapitulation') . ' :: ' . $project->subtitle);
+                    $projectSubtitle = '';
+                    if (!empty($project->subtitle)) {
+                        $projectSubtitle = ' :: ' . $project->subtitle;
+                    }
+                    $activeSheet->SetCellValue('A10', __('Recapitulation') . $projectSubtitle);
                     $activeSheet->mergeCells('A10:C10');
                     $activeSheet->getStyle('A10')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
                     $activeSheet->getStyle('A10')->getFont()->setSize(16);
                     $activeSheet->getStyle('A10')->getFont()->setBold(true);
                     $styleArray = ['borders' => [
-                        'outline' => ['style' => Border::BORDER_THIN, 'color' => ['argb' => '00000000']],
+                        'outline' => [
+                            'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                            'color' => ['argb' => '00000000'],
+                        ],
                     ]];
                     $activeSheet->getStyle('A10:C10')->applyFromArray($styleArray);
 
@@ -175,6 +182,9 @@ class PogoExport
                             $activeSheet->SetCellValue('A' . $j, self::rome($sectCntr) . '.');
                             $activeSheet->SetCellValue('B' . $j, h($section->title));
 
+                            $activeSheet->getCell('B' . $j)->getHyperlink()
+                                ->setUrl("sheet://'" . h($section->title) . "'!A2");
+
                             // new sheet
                             $ws = $objPHPExcel->createSheet();
 
@@ -183,7 +193,7 @@ class PogoExport
 
                             // footer
                             $hf = '&L' . $objPHPExcel->getProperties()->getTitle() .
-                                ' :: ' . $section->title . '&R' . __('Page %1$s of %2$s', '&P', '&N');
+                                ' :: ' . $section->title . '&R' . __('Page {0} of {1}', '&P', '&N');
                             $ws->getHeaderFooter()->setOddFooter($hf);
                             $ws->getHeaderFooter()->setEvenFooter($hf);
 
@@ -303,9 +313,30 @@ class PogoExport
                                     $ws->getStyle('D' . $i)
                                         ->getNumberFormat()
                                         ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+
+                                    // price field
                                     $ws->getStyle('E' . $i)
                                         ->getNumberFormat()
                                         ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                                    $ws->getStyle('E' . $i)
+                                        ->getProtection()
+                                        ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
+                                    if (!empty($options['accentprice'])) {
+                                        $styleArray = [
+                                            'borders' => [
+                                                'outline' => [
+                                                    'borderStyle' => Border::BORDER_THIN,
+                                                    'color' => ['argb' => '00808080'],
+                                                ],
+                                            ],
+                                            'fill' => [
+                                                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                                                'startColor' => ['argb' => 'FFFFCC99'],
+                                            ],
+                                        ];
+                                        $ws->getStyle('E' . $i)->applyFromArray($styleArray);
+                                    }
+
                                     $ws->getStyle('F' . $i)
                                         ->getNumberFormat()
                                         ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
@@ -385,6 +416,15 @@ class PogoExport
 
                             $ws->getPageSetup()->setPrintArea('A1:F' . $i);
 
+                            if (isset($options['password'])) {
+                                $protection = $ws->getProtection();
+                                $protection->setPassword($options['password']);
+                                $protection->setSheet(true);
+                                $protection->setSort(true);
+                                $protection->setInsertRows(true);
+                                $protection->setFormatCells(true);
+                            }
+
                             $ws = null;
 
                             // goto recap sheet and update numbers
@@ -443,6 +483,15 @@ class PogoExport
                     $j++;
 
                     $activeSheet->getPageSetup()->setPrintArea('A1:C' . $j);
+
+                    if (isset($options['password'])) {
+                        $protection = $activeSheet->getProtection();
+                        $protection->setPassword($options['password']);
+                        $protection->setSheet(true);
+                        $protection->setSort(true);
+                        $protection->setInsertRows(true);
+                        $protection->setFormatCells(true);
+                    }
 
                     $excelFile = Text::slug($project->no . ' ' . $project->title);
 

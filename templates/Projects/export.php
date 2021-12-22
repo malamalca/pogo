@@ -48,6 +48,16 @@
                         ],
                     ],
                 ],
+                'accent-price' => [
+                    'method' => 'control',
+                    'parameters' => [
+                        'field' => 'accentprice',
+                        'options' => [
+                            'type' => 'checkbox',
+                            'label' => __('Mark Price Field as Input'),
+                        ],
+                    ],
+                ],
                 'categories' => $categories->isEmpty() ? null : [
                     'method' => 'control',
                     'parameters' => [
@@ -60,7 +70,7 @@
                         ],
                     ],
                 ],
-                'cat-list-start' => '<div id="filter-category-list" style="display: none;">',
+                'cat-list-start' => '<div id="filter-category-list" class="export-filter-sub" style="display: none;">',
                 'cat-list-end' => '</div>',
                 'hashtags' => $tags->isEmpty() ? null : [
                     'method' => 'control',
@@ -74,6 +84,45 @@
                         ],
                     ],
                 ],
+
+                'protect' => [
+                    'method' => 'control',
+                    'parameters' => [
+                        'field' => 'protect',
+                        'options' => [
+                            'type' => 'checkbox',
+                            'label' => __('Password Protect Worksheet'),
+                            'onclick' => '$("#filter-protect").toggle();',
+                            'autocomplete' => 'off',
+                        ],
+                    ],
+                ],
+                'passwd-start' => '<div id="filter-protect" class="export-filter-sub" style="display: none;">',
+                'passwd' => [
+                    'method' => 'control',
+                    'parameters' => [
+                        'field' => 'passwd',
+                        'options' => [
+                            'type' => 'password',
+                            'label' => __('Password') . ':',
+                        ],
+                    ],
+                ],
+                'passwd-end' => '</div>',
+
+                'hashtags' => $tags->isEmpty() ? null : [
+                    'method' => 'control',
+                    'parameters' => [
+                        'field' => 'hashtags',
+                        'options' => [
+                            'label' => __('Tags') . ':',
+                            'type' => 'select',
+                            'options' => $tags,
+                            'multiple' => true,
+                        ],
+                    ],
+                ],
+
                 'fs_basics_end' => '</fieldset>',
 
                 'submit' => [
@@ -102,6 +151,7 @@
                         'label' => $category->title,
                         'value' => $category->id,
                         'autocomplete' => 'off',
+                        'id' => 'category-' . $category->id
                     ],
                 ],
             ]],
