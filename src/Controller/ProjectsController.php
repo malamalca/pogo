@@ -183,7 +183,7 @@ class ProjectsController extends AppController
 
             $filter = ['project' => $id];
             if (!empty($this->request->getQuery('categories'))) {
-                $filter['category'] = array_filter($this->request->getQuery('category'));
+                $filter['category'] = array_filter((array)$this->request->getQuery('category'));
             }
             if (!empty($this->request->getQuery('hashtags'))) {
                 $filter['tag'] = (array)$this->request->getQuery('hashtags');
