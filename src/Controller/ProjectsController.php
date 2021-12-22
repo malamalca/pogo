@@ -171,7 +171,10 @@ class ProjectsController extends AppController
                 ->distinct('tag')
                 ->where(['project_id' => $id])
                 ->all();
-            $this->set(compact('tags'));
+
+            $categories = $this->Projects->Categories->findForProject($id);
+
+            $this->set(compact('tags', 'categories'));
         } else {
             // do a real export
             if (!in_array($this->request->getQuery('type'), ['xls'])) {
@@ -179,18 +182,14 @@ class ProjectsController extends AppController
             }
 
             $filter = ['project' => $id];
-            if (!empty($this->request->getQuery('category'))) {
-                $filter['category'] = $this->request->getQuery('category');
+            if (!empty($this->request->getQuery('categories'))) {
+                $filter['category'] = array_filter($this->request->getQuery('category'));
             }
             if (!empty($this->request->getQuery('hashtags'))) {
                 $filter['tag'] = (array)$this->request->getQuery('hashtags');
             }
-            if ($this->request->getQuery('qties') == 'all') {
-                $filter['qties'] = true;
-            }
-            if ($this->request->getQuery('noprice')) {
-                $filter['noprice'] = true;
-            }
+            $filter['qties'] = $this->request->getQuery('qties') !== 'none';
+            $filter['noprice'] = (bool)$this->request->getQuery('noprice');
 
             $this->autoRender = false;
 

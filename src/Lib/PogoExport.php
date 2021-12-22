@@ -66,6 +66,10 @@ class PogoExport
             });
         }
 
+        if (!empty($options['category'])) {
+            $q->where(['Categories.id IN' => (array)$options['category']]);
+        }
+
         $categories = $q->all();
 
         $category_rows = [];

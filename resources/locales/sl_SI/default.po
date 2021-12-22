@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: POGO\n"
-"POT-Creation-Date: 2021-11-19 11:21+0000\n"
-"PO-Revision-Date: 2021-11-19 12:22+0100\n"
+"POT-Creation-Date: 2021-12-22 10:39+0000\n"
+"PO-Revision-Date: 2021-12-22 11:40+0100\n"
 "Last-Translator: Malamalca <info@malamalca.com>\n"
 "Language-Team: \n"
 "Language: sl_SI\n"
@@ -16,692 +16,713 @@ msgstr ""
 "%100==4 ? 2 : 3);\n"
 "X-Generator: Poedit 2.2.1\n"
 
-#: Controller/CategoriesController.php:64
+#: src/Controller/CategoriesController.php:66
 msgid "The category has been saved."
 msgstr "Kategorija je shranjena."
 
-#: Controller/CategoriesController.php:68
+#: src/Controller/CategoriesController.php:70
 msgid "The category could not be saved. Please, try again."
 msgstr "Kategorije ni mogoče shraniti. Preverite vpisane podatke."
 
-#: Controller/CategoriesController.php:90
+#: src/Controller/CategoriesController.php:96
 msgid "The category has been deleted."
 msgstr "Kategorija je izbrisana."
 
-#: Controller/CategoriesController.php:92
+#: src/Controller/CategoriesController.php:98
 msgid "The category could not be deleted. Please, try again."
 msgstr "Kategorije ni mogoče izbrisati."
 
-#: Controller/ItemsController.php:111
+#: src/Controller/ItemsController.php:99
 msgid "The item has been saved."
 msgstr "Element je shranjen."
 
-#: Controller/ItemsController.php:115
+#: src/Controller/ItemsController.php:103
 msgid "The item could not be saved. Please, try again."
 msgstr "Elementa ni mogoče shraniti. Preverite vpisane podatke."
 
-#: Controller/ItemsController.php:138
+#: src/Controller/ItemsController.php:133
 msgid "The item has been deleted."
 msgstr "Element je izbrisan."
 
-#: Controller/ItemsController.php:141
+#: src/Controller/ItemsController.php:135
 msgid "The item could not be deleted. Please, try again."
 msgstr "Elementa ni mogoče izbrisati."
 
-#: Controller/ProjectsController.php:85 Controller/ProjectsController.php:111
-#: Controller/ProjectsController.php:135
+#: src/Controller/ProjectsController.php:78
+#: src/Controller/ProjectsController.php:104
+#: src/Controller/ProjectsController.php:128
 msgid "Your project has been updated."
 msgstr "Projekt je shranjen.."
 
-#: Controller/ProjectsController.php:89 Controller/ProjectsController.php:113
-#: Controller/ProjectsController.php:137
+#: src/Controller/ProjectsController.php:82
+#: src/Controller/ProjectsController.php:106
+#: src/Controller/ProjectsController.php:130
 msgid "Unable to update your project."
 msgstr "Projekta ni mogoče shraniti. Preverite vpisane podatke."
 
-#: Controller/ProjectsController.php:157
+#: src/Controller/ProjectsController.php:150
 msgid "Your project has been deleted."
 msgstr "Projekt je izbrisan."
 
-#: Controller/ProjectsController.php:187
+#: src/Controller/ProjectsController.php:178
 msgid "Invalid export file type."
 msgstr "Neveljaven format za izvoz."
 
-#: Controller/ProjectsUsersController.php:56
+#: src/Controller/ProjectsUsersController.php:62
 msgid "The invitation has been sent."
 msgstr "Vabilo je poslano."
 
-#: Controller/ProjectsUsersController.php:59
+#: src/Controller/ProjectsUsersController.php:65
 msgid "There was a problem sending invitation. User likely already exists."
 msgstr "Vabila ni mogoče poslati. Uporabnik je verjetno že vključen v projekt."
 
-#: Controller/ProjectsUsersController.php:98
+#: src/Controller/ProjectsUsersController.php:109
 msgid "You are already colaboration on this project!"
 msgstr "V tem projektu že sodelujete!"
 
-#: Controller/ProjectsUsersController.php:107
+#: src/Controller/ProjectsUsersController.php:118
 msgid "You accepted the invitation to colaborate on this project!"
 msgstr "Sprejeli ste povabilo za sodelovanje v projektu!"
 
-#: Controller/ProjectsUsersController.php:111
+#: src/Controller/ProjectsUsersController.php:122
 msgid "Invalid Invitation Key!"
 msgstr "Neveljavno ali že izkoriščeno povabilo."
 
-#: Controller/ProjectsUsersController.php:132
+#: src/Controller/ProjectsUsersController.php:143
 msgid "The projects user has been deleted."
 msgstr "Uporabnik je odstranjen."
 
-#: Controller/ProjectsUsersController.php:134
+#: src/Controller/ProjectsUsersController.php:145
 msgid "The projects user could not be deleted. Please, try again."
 msgstr "Uporabnika ni mogoče odstraniti."
 
-#: Controller/SectionsController.php:70
+#: src/Controller/SectionsController.php:77
 msgid "The section has been saved."
 msgstr "Sekcija je shranjena."
 
-#: Controller/SectionsController.php:74
+#: src/Controller/SectionsController.php:81
 msgid "The section could not be saved. Please, try again."
 msgstr "Sekciji ni mogoče shraniti. Preverite vpisane podatke."
 
-#: Controller/SectionsController.php:98
+#: src/Controller/SectionsController.php:103
 msgid "The section has been deleted."
 msgstr "Sekcija je izbrisana."
 
-#: Controller/SectionsController.php:100
+#: src/Controller/SectionsController.php:105
 msgid "The section could not be deleted. Please, try again."
 msgstr "Sekcije ni mogoče izbrisati."
 
-#: Controller/UsersController.php:112
+#: src/Controller/UsersController.php:110
 msgid "An email with password reset instructions has been sent."
 msgstr "Na vpisan email naslov so bila poslana navodila za spremembo gesla."
 
-#: Controller/UsersController.php:114
+#: src/Controller/UsersController.php:112
 msgid "No user with specified email has been found."
 msgstr "Uporabnik z vpisanim naslovom ne obstaja."
 
-#: Controller/UsersController.php:132
+#: src/Controller/UsersController.php:130
 msgid "Reset key does not exist."
 msgstr "Neveljavna povezava za spremembo gesla."
 
-#: Controller/UsersController.php:142
+#: src/Controller/UsersController.php:140
 msgid "User does not exist."
 msgstr "Uporabnik ne obstaja."
 
-#: Controller/UsersController.php:149
+#: src/Controller/UsersController.php:147
 msgid "Password has been changed."
 msgstr "Geslo je spremenjeno."
 
-#: Controller/UsersController.php:152
+#: src/Controller/UsersController.php:150
 msgid "Please verify that the information is correct."
 msgstr "Preverite, če so vpisani podatki pravilni."
 
-#: Controller/UsersController.php:245
+#: src/Controller/UsersController.php:231
 msgid "The user has been saved."
 msgstr "Uporabnik je shranjen."
 
-#: Controller/UsersController.php:249
+#: src/Controller/UsersController.php:235
 msgid "The user could not be saved. Please, try again."
 msgstr "Uporabnika ni mogoče shraniti. Preverite vpisane podatke."
 
-#: Controller/UsersController.php:290
+#: src/Controller/UsersController.php:282
 msgid "Properties have been saved."
 msgstr "Nastavitve so shranjene."
 
-#: Controller/UsersController.php:294
+#: src/Controller/UsersController.php:286
 msgid "Properties could not be saved. Please, try again."
 msgstr "Nastavitev ni mogoče shraniti. Preverite vpisane podatke."
 
-#: Controller/UsersController.php:316
+#: src/Controller/UsersController.php:308
 msgid "The user has been deleted."
 msgstr "Uporabnik je izbrisan."
 
-#: Controller/UsersController.php:318
+#: src/Controller/UsersController.php:310
 msgid "The user could not be deleted. Please, try again."
 msgstr "Uporabnika ni mogoče izbrisati."
 
-#: Controller/VariablesController.php:56 Controller/VariablesController.php:84
+#: src/Controller/VariablesController.php:56
+#: src/Controller/VariablesController.php:84
 msgid "The variable has been saved."
 msgstr "Konstanta je shranjena."
 
-#: Controller/VariablesController.php:60 Controller/VariablesController.php:88
+#: src/Controller/VariablesController.php:60
+#: src/Controller/VariablesController.php:88
 msgid "The variable could not be saved. Please, try again."
 msgstr "Konstante ni mogoče shraniti. Preverite vpisane podatke."
 
-#: Controller/VariablesController.php:109
+#: src/Controller/VariablesController.php:109
 msgid "The variable has been deleted."
 msgstr "Konstanta je izbrisana."
 
-#: Controller/VariablesController.php:111
+#: src/Controller/VariablesController.php:111
 msgid "The variable could not be deleted. Please, try again."
 msgstr "Konstante ni mogoče izbrisati."
 
-#: Form/InviteUserForm.php:113
+#: src/Form/InviteUserForm.php:116
 msgid "Project Participation Invite"
 msgstr "Vabilo za sodelovanje na projektu"
 
-#: Lib/AppSidebar.php:49
-msgid "Dashboard"
-msgstr "Nadzorna plošča"
-
-#: Lib/AppSidebar.php:59
-msgid "Projects"
-msgstr "Projekti"
-
-#: Lib/AppSidebar.php:70
-msgid "Templats"
-msgstr "Podloge"
-
-#: Lib/AppSidebar.php:98
-msgid "Front Page"
-msgstr "Naslovnica"
-
-#: Lib/AppSidebar.php:112
-msgid "Properties"
-msgstr "Lastnosti"
-
-#: Lib/AppSidebar.php:127
-msgid "Notes"
-msgstr "Opombe"
-
-#: Lib/AppSidebar.php:142
-msgid "Users"
-msgstr "Uporabniki"
-
-#: Lib/PogoExport.php:86
-msgid "www.pogo.si"
-msgstr "www.pogo.si"
-
-#: Lib/PogoExport.php:89
-msgid "Builing estimates and calculations"
-msgstr "Kalkulacije in obračuni v gradnji"
-
-#: Lib/PogoExport.php:99 Lib/PogoExport.php:102 Lib/PogoExport.php:178
-msgid "Page %1$s of %2$s"
-msgstr "Stran %1$s od %2$s"
-
-#: Lib/PogoExport.php:106 Lib/PogoExport.php:123
-msgid "Recapitulation"
-msgstr "Rekapitulacija"
-
-#: Lib/PogoExport.php:109
-msgid "Project"
-msgstr "Projekt"
-
-#: Lib/PogoExport.php:115 Projects/view.php:80
-msgid "Investor"
-msgstr "Investitor"
-
-#: Lib/PogoExport.php:211
-msgid "No."
-msgstr "Št."
-
-#: Lib/PogoExport.php:212 Projects/edit.php:64 Sections/edit.php:43
-#: Sections/view.php:53
-msgid "Description"
-msgstr "Opis"
-
-#: Lib/PogoExport.php:213 Sections/view.php:54
-msgid "Unit"
-msgstr "Enota"
-
-#: Lib/PogoExport.php:214 Sections/view.php:55 element/item_editor.php:28
-msgid "Qty"
-msgstr "Količina"
-
-#: Lib/PogoExport.php:218
-msgid "Price [{0}]"
-msgstr "Cena [{0}]"
-
-#: Lib/PogoExport.php:222
-msgid "Total [{0}]"
-msgstr "Skupaj [{0}s]"
-
-#: Lib/PogoExport.php:361
-msgid "Grand total"
-msgstr "Skupaj"
-
-#: Lib/PogoExport.php:393 Sections/view.php:205
-msgid "Grand Total"
-msgstr "Skupaj"
-
-#: Lib/PogoExport.php:426 Projects/edit.php:125
-msgid "Project Leader"
-msgstr "Odg. vodja projekta"
-
-#: Lib/PogoExport.php:458
-msgid "Export error: No data found."
-msgstr "Napaka pri izvozi. Ni podatkov."
-
-#: Model/Table/UsersTable.php:236 Users/reset.php:5
-msgid "Password Reset"
-msgstr ""
-
-#: Categories/edit.php:4 Projects/view.php:54 Projects/view.php:166
-msgid "Add Category"
-msgstr "Vpis kategorije"
-
-#: Categories/edit.php:4 Categories/view.php:30
-msgid "Edit Category"
-msgstr "Urejanje kategorije"
-
-#: Categories/edit.php:29 ProjectsUsers/index.php:21 Projects/view.php:81
-#: Projects/view.php:90 Sections/edit.php:32
-msgid "Title"
-msgstr "Naziv"
-
-#: Categories/edit.php:30 ProjectsUsers/invite.php:24 Sections/edit.php:33
-msgid "Title is required field."
-msgstr "Naziv je obvezno polje."
-
-#: Categories/edit.php:39 ProjectsUsers/invite.php:51 Projects/edit.php:171
-#: Projects/notes.php:37 Sections/edit.php:52 Users/edit.php:105
-#: Users/properties.php:98 element/item_editor.php:101
-msgid "Save"
-msgstr "Shrani"
-
-#: Categories/view.php:8 Categories/view.php:17 Sections/edit.php:4
-msgid "Add Section"
-msgstr "Vpis sekcije"
-
-#: Categories/view.php:21 Projects/view.php:9 Sections/view.php:13
-#: Users/view.php:10
+#: src/Lib/MainMenu.php:39 src/Lib/MainMenu.php:149 src/Lib/MainMenu.php:211
+#: templates/Users/view.php:10
 msgid "Edit"
 msgstr "Uredi"
 
-#: Categories/view.php:34 Projects/view.php:30 Sections/view.php:23
-#: Users/view.php:15
-msgid "Delete"
-msgstr "Briši"
+#: src/Lib/MainMenu.php:49
+msgid "Notes"
+msgstr "Opombe"
 
-#: Categories/view.php:43
-msgid "Are you sure you want to delete this category?"
-msgstr "Ste prepričani, da želite izbrisati kategorijo?"
+#: src/Lib/MainMenu.php:71 templates/Categories/edit.php:16
+#: templates/Projects/view.php:99
+msgid "Add Category"
+msgstr "Vpis kategorije"
 
-#: ProjectsUsers/index.php:4
-msgid "Users on Project"
-msgstr "Sodelujoči uporabniki"
-
-#: ProjectsUsers/index.php:7
-msgid "Invite"
-msgstr "Pošlji vabilo"
-
-#: ProjectsUsers/invite.php:3
-msgid "Invite to participate"
-msgstr "Vabilo za sodelovanje"
-
-#: ProjectsUsers/invite.php:23 Users/edit.php:40 Users/properties.php:41
-#: Users/reset.php:24 Users/view.php:31
-msgid "Email"
-msgstr "Email"
-
-#: ProjectsUsers/invite.php:35 Users/edit.php:66
-msgid "Privileges"
-msgstr "Pravice na projektu"
-
-#: ProjectsUsers/invite.php:39 Users/edit.php:72
-msgid "Reader"
-msgstr "Bralec"
-
-#: ProjectsUsers/invite.php:40 Users/edit.php:71
-msgid "Editor"
-msgstr "Urednik"
-
-#: ProjectsUsers/invite.php:41
-msgid "Owner"
-msgstr "Lastnik"
-
-#: Projects/edit.php:4
-msgid "Add a Project"
-msgstr "Vpis projekta"
-
-#: Projects/edit.php:4
-msgid "Project Properties"
-msgstr "Lastnosti projekta"
-
-#: Projects/edit.php:27
-msgid "Basic data"
-msgstr "Osnovni podatki"
-
-#: Projects/edit.php:33
-msgid "No"
-msgstr "Št."
-
-#: Projects/edit.php:42 Users/edit.php:33 Users/index.php:46
-#: Users/properties.php:33 Users/view.php:29
-msgid "Name"
-msgstr "Naziv"
-
-#: Projects/edit.php:43
-msgid "Project name is required."
-msgstr "Naziv je obvezno polje."
-
-#: Projects/edit.php:53
-msgid "Subtitle"
-msgstr "Podnaslov"
-
-#: Projects/edit.php:65
-msgid "Project description is required."
-msgstr "Opis je obvezno polje."
-
-#: Projects/edit.php:74
-msgid "Date and place"
-msgstr "Kraj in datum"
-
-#: Projects/edit.php:80
-msgid "Investor data"
-msgstr "Podatki investitorja"
-
-#: Projects/edit.php:86 Projects/edit.php:135
-msgid "Name or title"
-msgstr "Ime ali naziv podjetja"
-
-#: Projects/edit.php:95 Projects/edit.php:144 Projects/view.php:82
-#: Projects/view.php:91
-msgid "Address"
-msgstr "Naslov"
-
-#: Projects/edit.php:104 Projects/edit.php:153
-msgid "ZIP"
-msgstr "Poštna št."
-
-#: Projects/edit.php:113 Projects/edit.php:162 Projects/view.php:83
-#: Projects/view.php:92
-msgid "Post"
-msgstr "Pošta"
-
-#: Projects/edit.php:119
-msgid "Creator data"
-msgstr "Podatki projektanta"
-
-#: Projects/export.php:3
-msgid "Project Export"
-msgstr "Izvoz projekta"
-
-#: Projects/export.php:21
-msgid "Basic options"
-msgstr "Možnosti za izvoz"
-
-#: Projects/export.php:28
-msgid "Items"
-msgstr "Elementi"
-
-#: Projects/export.php:30
-msgid "with Quantites"
-msgstr "s podrobnimi količinami"
-
-#: Projects/export.php:31
-msgid "without Quantites"
-msgstr "brez podrobnih količin"
-
-#: Projects/export.php:41
-msgid "Tags"
-msgstr "Oznake"
-
-#: Projects/export.php:53
-msgid "Export"
-msgstr "Izvoz"
-
-#: Projects/index.php:4
-msgid "Start using pogo.si - create your [first project]."
-msgstr "Začnite tukaj - ustvarite svoj [prvi projekt]."
-
-#: Projects/index.php:10
-msgid "Problems? Send us an email info@pogo.si"
-msgstr "Težave? Pošljite nam email na info@pogo.si"
-
-#: Projects/index.php:11
-msgid "Your pogo.si team."
-msgstr "Lep pozdrav, Pogo.si"
-
-#: Projects/index.php:17 Projects/index.php:22 Users/index.php:8
-#: Users/index.php:14
-msgid "Active"
-msgstr "Aktivni"
-
-#: Projects/index.php:17 Projects/index.php:23
-msgid "Archived"
-msgstr "Arhivirani"
-
-#: Projects/index.php:28
-msgid "{0} Projects"
-msgstr "{0} Projekti"
-
-#: Projects/index.php:34 Users/index.php:25
-msgid "Add"
-msgstr "Dodaj"
-
-#: Projects/notes.php:3
-msgid "Project Notes"
-msgstr "Splošni pogoji"
-
-#: Projects/view.php:38
-msgid "Are you sure you want to delete this project?"
-msgstr "Ste prepričani, da želite izbrisati projekt?"
-
-#: Projects/view.php:42
-msgid "Archive"
-msgstr "Arhiviraj"
-
-#: Projects/view.php:42
-msgid "Unarchive"
-msgstr "Dearhiviraj"
-
-#: Projects/view.php:50
-msgid "Are You Sure?"
-msgstr "Ste prepričani?"
-
-#: Projects/view.php:67
+#: src/Lib/MainMenu.php:85
 msgid "Export to XLS"
 msgstr "Izvoz v XLS"
 
-#: Projects/view.php:89
-msgid "Creator"
-msgstr "Projektant"
+#: src/Lib/MainMenu.php:95
+msgid "Administration"
+msgstr ""
 
-#: Projects/view.php:95
-msgid "Project Recapitulation"
-msgstr "Rekapitulacija projekta"
+#: src/Lib/MainMenu.php:99 src/Lib/MainMenu.php:159 src/Lib/MainMenu.php:225
+#: templates/Users/view.php:15
+msgid "Delete"
+msgstr "Briši"
 
-#: Projects/view.php:123
-msgid "n/a"
-msgstr "np"
+#: src/Lib/MainMenu.php:107
+msgid "Are you sure you want to delete this project?"
+msgstr "Ste prepričani, da želite izbrisati projekt?"
 
-#: Sections/edit.php:4
-msgid "Edit Section"
-msgstr "Urejanje sekcije"
+#: src/Lib/MainMenu.php:111
+msgid "Archive"
+msgstr "Arhiviraj"
 
-#: Sections/view.php:32
+#: src/Lib/MainMenu.php:111
+msgid "Unarchive"
+msgstr "Dearhiviraj"
+
+#: src/Lib/MainMenu.php:119
+msgid "Are You Sure?"
+msgstr "Ste prepričani?"
+
+#: src/Lib/MainMenu.php:167
 msgid "Are you sure you want to delete this section?"
 msgstr "Ste prepričani, da želite izbrisati sekcijo?"
 
-#: Sections/view.php:52
+#: src/Lib/MainMenu.php:194 src/Lib/MainMenu.php:206
+#: templates/Sections/edit.php:18
+msgid "Add Section"
+msgstr "Vpis sekcije"
+
+#: src/Lib/MainMenu.php:221 templates/Categories/edit.php:16
+msgid "Edit Category"
+msgstr "Urejanje kategorije"
+
+#: src/Lib/MainMenu.php:234
+msgid "Are you sure you want to delete this category?"
+msgstr "Ste prepričani, da želite izbrisati kategorijo?"
+
+#: src/Lib/PogoExport.php:86
+msgid "www.pogo.si"
+msgstr "www.pogo.si"
+
+#: src/Lib/PogoExport.php:89
+msgid "Builing estimates and calculations"
+msgstr "Kalkulacije in obračuni v gradnji"
+
+#: src/Lib/PogoExport.php:99 src/Lib/PogoExport.php:102
+#: src/Lib/PogoExport.php:182
+msgid "Page %1$s of %2$s"
+msgstr "Stran %1$s od %2$s"
+
+#: src/Lib/PogoExport.php:106 src/Lib/PogoExport.php:123
+msgid "Recapitulation"
+msgstr "Rekapitulacija"
+
+#: src/Lib/PogoExport.php:109
+msgid "Project"
+msgstr "Projekt"
+
+#: src/Lib/PogoExport.php:115 templates/Projects/view.php:13
+msgid "Investor"
+msgstr "Investitor"
+
+#: src/Lib/PogoExport.php:215
+msgid "No."
+msgstr "Št."
+
+#: src/Lib/PogoExport.php:216 templates/Projects/edit.php:69
+#: templates/Sections/edit.php:54 templates/Sections/view.php:26
+msgid "Description"
+msgstr "Opis"
+
+#: src/Lib/PogoExport.php:217 templates/Sections/view.php:27
+msgid "Unit"
+msgstr "Enota"
+
+#: src/Lib/PogoExport.php:218 templates/Sections/view.php:28
+#: templates/element/item_editor.php:28
+msgid "Qty"
+msgstr "Količina"
+
+#: src/Lib/PogoExport.php:222
+msgid "Price [{0}]"
+msgstr "Cena [{0}]"
+
+#: src/Lib/PogoExport.php:226
+msgid "Total [{0}]"
+msgstr "Skupaj [{0}s]"
+
+#: src/Lib/PogoExport.php:367
+msgid "Grand total"
+msgstr "Skupaj"
+
+#: src/Lib/PogoExport.php:399 templates/Sections/view.php:178
+msgid "Grand Total"
+msgstr "Skupaj"
+
+#: src/Lib/PogoExport.php:429 templates/Projects/edit.php:130
+msgid "Project Leader"
+msgstr "Odg. vodja projekta"
+
+#: src/Lib/PogoExport.php:461
+msgid "Export error: No data found."
+msgstr "Napaka pri izvozi. Ni podatkov."
+
+#: src/Model/Table/UsersTable.php:235 templates/Users/reset.php:5
+msgid "Password Reset"
+msgstr "Novo geslo"
+
+#: templates/Categories/edit.php:36 templates/ProjectsUsers/index.php:21
+#: templates/Projects/view.php:14 templates/Projects/view.php:23
+#: templates/Sections/edit.php:43
+msgid "Title"
+msgstr "Naziv"
+
+#: templates/Categories/edit.php:37 templates/ProjectsUsers/invite.php:24
+#: templates/Sections/edit.php:44
+msgid "Title is required field."
+msgstr "Naziv je obvezno polje."
+
+#: templates/Categories/edit.php:46 templates/ProjectsUsers/invite.php:51
+#: templates/Projects/edit.php:176 templates/Projects/notes.php:42
+#: templates/Sections/edit.php:65 templates/Users/edit.php:104
+#: templates/Users/properties.php:97 templates/element/item_editor.php:101
+msgid "Save"
+msgstr "Shrani"
+
+#: templates/Categories/view.php:12
+msgid "Sections"
+msgstr "Sekcije"
+
+#: templates/ProjectsUsers/index.php:4
+msgid "Users on Project"
+msgstr "Sodelujoči uporabniki"
+
+#: templates/ProjectsUsers/index.php:7
+msgid "Invite"
+msgstr "Pošlji vabilo"
+
+#: templates/ProjectsUsers/invite.php:3
+msgid "Invite to participate"
+msgstr "Vabilo za sodelovanje"
+
+#: templates/ProjectsUsers/invite.php:23 templates/Users/edit.php:39
+#: templates/Users/properties.php:40 templates/Users/reset.php:24
+#: templates/Users/view.php:31
+msgid "Email"
+msgstr "Email"
+
+#: templates/ProjectsUsers/invite.php:35 templates/Users/edit.php:65
+msgid "Privileges"
+msgstr "Pravice na projektu"
+
+#: templates/ProjectsUsers/invite.php:39 templates/Users/edit.php:71
+msgid "Reader"
+msgstr "Bralec"
+
+#: templates/ProjectsUsers/invite.php:40 templates/Users/edit.php:70
+msgid "Editor"
+msgstr "Urednik"
+
+#: templates/ProjectsUsers/invite.php:41
+msgid "Owner"
+msgstr "Lastnik"
+
+#: templates/Projects/edit.php:6
+msgid "Add a Project"
+msgstr "Vpis projekta"
+
+#: templates/Projects/edit.php:14
+msgid "Project Properties"
+msgstr "Lastnosti projekta"
+
+#: templates/Projects/edit.php:38
+msgid "No"
+msgstr "Št."
+
+#: templates/Projects/edit.php:47 templates/Users/edit.php:32
+#: templates/Users/index.php:46 templates/Users/properties.php:32
+#: templates/Users/view.php:29
+msgid "Name"
+msgstr "Naziv"
+
+#: templates/Projects/edit.php:48
+msgid "Project name is required."
+msgstr "Naziv je obvezno polje."
+
+#: templates/Projects/edit.php:58
+msgid "Subtitle"
+msgstr "Podnaslov"
+
+#: templates/Projects/edit.php:70
+msgid "Project description is required."
+msgstr "Opis je obvezno polje."
+
+#: templates/Projects/edit.php:79
+msgid "Date and place"
+msgstr "Kraj in datum"
+
+#: templates/Projects/edit.php:85
+msgid "Investor data"
+msgstr "Podatki investitorja"
+
+#: templates/Projects/edit.php:91 templates/Projects/edit.php:140
+msgid "Name or title"
+msgstr "Ime ali naziv podjetja"
+
+#: templates/Projects/edit.php:100 templates/Projects/edit.php:149
+#: templates/Projects/view.php:15 templates/Projects/view.php:24
+msgid "Address"
+msgstr "Naslov"
+
+#: templates/Projects/edit.php:109 templates/Projects/edit.php:158
+msgid "ZIP"
+msgstr "Poštna št."
+
+#: templates/Projects/edit.php:118 templates/Projects/edit.php:167
+#: templates/Projects/view.php:16 templates/Projects/view.php:25
+msgid "Post"
+msgstr "Pošta"
+
+#: templates/Projects/edit.php:124
+msgid "Creator data"
+msgstr "Podatki projektanta"
+
+#: templates/Projects/export.php:27
+msgid "Basic options"
+msgstr "Možnosti za izvoz"
+
+#: templates/Projects/export.php:37
+msgid "Export Without Item Qties"
+msgstr "Izvoz brez analitike količin"
+
+#: templates/Projects/export.php:47
+msgid "Export Without Item Prices"
+msgstr "Izvoz brez cen"
+
+#: templates/Projects/export.php:56
+msgid "Tags"
+msgstr "Oznake"
+
+#: templates/Projects/export.php:68
+msgid "Export"
+msgstr "Izvoz"
+
+#: templates/Projects/index.php:4
+msgid "Start using pogo.si - create your [first project]."
+msgstr "Začnite tukaj - ustvarite svoj [prvi projekt]."
+
+#: templates/Projects/index.php:10
+msgid "Problems? Send us an email info@pogo.si"
+msgstr "Težave? Pošljite nam email na info@pogo.si"
+
+#: templates/Projects/index.php:11
+msgid "Your pogo.si team."
+msgstr "Lep pozdrav, Pogo.si"
+
+#: templates/Projects/index.php:17 templates/Projects/index.php:22
+#: templates/Users/index.php:8 templates/Users/index.php:14
+msgid "Active"
+msgstr "Aktivni"
+
+#: templates/Projects/index.php:17 templates/Projects/index.php:23
+msgid "Archived"
+msgstr "Arhivirani"
+
+#: templates/Projects/index.php:28
+msgid "{0} Projects"
+msgstr "{0} Projekti"
+
+#: templates/Projects/index.php:34 templates/Users/index.php:25
+msgid "Add"
+msgstr "Dodaj"
+
+#: templates/Projects/view.php:22
+msgid "Creator"
+msgstr "Projektant"
+
+#: templates/Projects/view.php:28
+msgid "Project Recapitulation"
+msgstr "Rekapitulacija projekta"
+
+#: templates/Projects/view.php:56
+msgid "n/a"
+msgstr "np"
+
+#: templates/Sections/edit.php:18
+msgid "Edit Section"
+msgstr "Urejanje sekcije"
+
+#: templates/Sections/view.php:25
 msgid "Ord."
 msgstr "Št."
 
-#: Sections/view.php:56
+#: templates/Sections/view.php:29
 msgid "Price"
 msgstr "Cena"
 
-#: Sections/view.php:57
+#: templates/Sections/view.php:30
 msgid "Total"
 msgstr "Skupaj"
 
-#: Sections/view.php:266
+#: templates/Sections/view.php:239
 msgid "Contents modified. Exit without saving changes?"
 msgstr "V vpisanih podatkih so spremembe. Izhod brez shranjevanja?"
 
-#: Sections/view.php:267
+#: templates/Sections/view.php:240
 msgid "Are you sure you want to delete this item?"
 msgstr "Ste prepričani, da želite izbrisati element?"
 
-#: Sections/view.php:274
+#: templates/Sections/view.php:247
 msgid "Show"
 msgstr "Ogled"
 
-#: Sections/view.php:275
+#: templates/Sections/view.php:248
 msgid "Shapes"
 msgstr "Oblike"
 
-#: Users/change_password.php:4
+#: templates/Users/change_password.php:4
 msgid "Set new password for {0}"
 msgstr "Novo geslo za {0}"
 
-#: Users/change_password.php:10
+#: templates/Users/change_password.php:10
 msgid "New Password"
 msgstr "Novo geslo"
 
-#: Users/change_password.php:10
+#: templates/Users/change_password.php:10
 msgid "Password is required, format must be valid."
 msgstr "Geslo je obvezno, preverja se veljavnost."
 
-#: Users/change_password.php:11 Users/edit.php:96 Users/properties.php:85
+#: templates/Users/change_password.php:11 templates/Users/edit.php:95
+#: templates/Users/properties.php:84
 msgid "Repeat Password"
 msgstr "Ponovi geslo"
 
-#: Users/change_password.php:11 Users/properties.php:69 Users/properties.php:89
+#: templates/Users/change_password.php:11 templates/Users/properties.php:68
+#: templates/Users/properties.php:88
 msgid "Passwords do not match."
 msgstr "Gesli se ne ujemata."
 
-#: Users/change_password.php:14
+#: templates/Users/change_password.php:14
 msgid "Change"
 msgstr "Spremeni"
 
-#: Users/edit.php:7
+#: templates/Users/edit.php:6
 msgid "Edit User"
 msgstr "Urejanje uporabnika"
 
-#: Users/edit.php:27 Users/properties.php:27
+#: templates/Users/edit.php:26 templates/Users/properties.php:26
 msgid "Basics"
 msgstr "Osnovni podatki"
 
-#: Users/edit.php:47
+#: templates/Users/edit.php:46
 msgid "Active User"
 msgstr "Aktivni uporabnik"
 
-#: Users/edit.php:54
+#: templates/Users/edit.php:53
 msgid "Hidden User"
 msgstr "Skriti uporabnik"
 
-#: Users/edit.php:60 Users/login.php:5
+#: templates/Users/edit.php:59 templates/Users/login.php:5
 msgid "Login"
 msgstr "Prijava"
 
-#: Users/edit.php:69
+#: templates/Users/edit.php:68
 msgid "Admin"
 msgstr "Administrator"
 
-#: Users/edit.php:70
+#: templates/Users/edit.php:69
 msgid "Group Admin"
 msgstr "Administrator skupine"
 
-#: Users/edit.php:80 Users/login.php:19 Users/view.php:30
+#: templates/Users/edit.php:79 templates/Users/login.php:19
+#: templates/Users/view.php:30
 msgid "Username"
 msgstr "Uporabniško ime"
 
-#: Users/edit.php:88 Users/login.php:29 Users/properties.php:77
+#: templates/Users/edit.php:87 templates/Users/login.php:29
+#: templates/Users/properties.php:76
 msgid "Password"
 msgstr "Geslo"
 
-#: Users/index.php:3 Users/index.php:13
+#: templates/Users/index.php:3 templates/Users/index.php:13
 msgid "All"
 msgstr "Vsi"
 
-#: Users/index.php:5 Users/index.php:15
+#: templates/Users/index.php:5 templates/Users/index.php:15
 msgid "Inactive"
 msgstr "Neaktivni"
 
-#: Users/index.php:19
+#: templates/Users/index.php:19
 msgid "{0} Users"
 msgstr "{0} Uporabniki"
 
-#: Users/login.php:40
+#: templates/Users/login.php:40
 msgid "Remember me on this computer"
 msgstr "Zapomni si prijavo"
 
-#: Users/login.php:46
+#: templates/Users/login.php:46
 msgid "OK"
 msgstr "OK"
 
-#: Users/login.php:53 email/text/reset.php:13
+#: templates/Users/login.php:53 templates/email/text/reset.php:13
 msgid "Forgot your password?"
 msgstr "Pozabljeno geslo?"
 
-#: Users/properties.php:7
+#: templates/Users/properties.php:6
 msgid "My Properties"
 msgstr "Nastavitve"
 
-#: Users/properties.php:51
+#: templates/Users/properties.php:50
 msgid "Avatar"
 msgstr "Prikazna slika"
 
-#: Users/properties.php:60
+#: templates/Users/properties.php:59
 msgid "Change Password"
 msgstr "Spremeni geslo"
 
-#: Users/properties.php:65
+#: templates/Users/properties.php:64
 msgid "Current Password"
 msgstr "Trenutno geslo"
 
-#: Users/properties.php:68 Users/properties.php:88
+#: templates/Users/properties.php:67 templates/Users/properties.php:87
 msgid "Must not be empty."
 msgstr "Polje ne sme ostati prazno."
 
-#: Users/reset.php:25
+#: templates/Users/reset.php:25
 msgid "Email is required, format must be valid."
 msgstr "Email naslov je obvezno polje."
 
-#: Users/reset.php:33
+#: templates/Users/reset.php:33
 msgid "Request new Password"
 msgstr "Zahtevaj novo geslo"
 
-#: Users/view.php:4
+#: templates/Users/view.php:4
 msgid "User data for {0}"
 msgstr "Podatki uporabnika {0}"
 
-#: Users/view.php:19
+#: templates/Users/view.php:19
 msgid "Are you sure you want to delete this user?"
 msgstr "Ste prepričani, da želite izbrisati uporabnika?"
 
-#: element/item_editor.php:74
+#: templates/element/item_editor.php:74
 msgid "add item"
 msgstr "vpis elementa"
 
-#: element/item_editor.php:102
+#: templates/element/item_editor.php:102
 msgid "or"
 msgstr "ali"
 
-#: element/item_editor.php:103
+#: templates/element/item_editor.php:103
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: email/text/reset.php:15
+#: templates/email/text/reset.php:15
 msgid "You've received this mail from password reset request on Famiree"
 msgstr "Email sporočilo je namenjeno spremembi gesla na www.pogo.si"
 
-#: email/text/reset.php:16
+#: templates/email/text/reset.php:16
 msgid "Please follow this url to change your password:"
 msgstr "Za spremembo kliknite na povezavo:"
 
-#: email/text/reset.php:20
+#: templates/email/text/reset.php:20
 msgid "Please discard this email if you did not want to change your password."
 msgstr ""
 "V primeru, da niste zahtevali spremembo gesla, smatrajte elektronsko "
 "sporočilo za brezpredmetno."
 
-#: email/text/reset.php:23
+#: templates/email/text/reset.php:23
 msgid "Best Regards."
 msgstr "Lep pozdrav,"
 
-#: layout/default.php:77
+#: templates/layout/default.php:54
 msgid "Settings"
 msgstr "Nastavitve"
 
-#: layout/default.php:79
+#: templates/layout/default.php:56
 msgid "Logout"
 msgstr "Odjava"
 
-#: layout/error.php:38
+#: templates/layout/error.php:22
 msgid "Back"
 msgstr "Nazaj"
+
+#~ msgid "Dashboard"
+#~ msgstr "Nadzorna plošča"
+
+#~ msgid "Projects"
+#~ msgstr "Projekti"
+
+#~ msgid "Templats"
+#~ msgstr "Podloge"
+
+#~ msgid "Front Page"
+#~ msgstr "Naslovnica"
+
+#~ msgid "Properties"
+#~ msgstr "Lastnosti"
+
+#~ msgid "Users"
+#~ msgstr "Uporabniki"
+
+#~ msgid "Basic data"
+#~ msgstr "Osnovni podatki"
+
+#~ msgid "Project Export"
+#~ msgstr "Izvoz projekta"
+
+#~ msgid "Items"
+#~ msgstr "Elementi"
+
+#~ msgid "with Quantites"
+#~ msgstr "s podrobnimi količinami"
+
+#~ msgid "without Quantites"
+#~ msgstr "brez podrobnih količin"
+
+#~ msgid "Project Notes"
+#~ msgstr "Splošni pogoji"
 
 #~ msgid "Invalid Category"
 #~ msgstr "Kategorija ne obstaja"

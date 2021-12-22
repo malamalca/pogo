@@ -32,12 +32,9 @@
                     'parameters' => [
                         'field' => 'qties',
                         'options' => [
-                            'type' => 'select',
-                            'label' => __('Items') . ':',
-                            'options' => [
-                                'all' => __('with Quantites'),
-                                'none' => __('without Quantites'),
-                            ],
+                            'type' => 'checkbox',
+                            'value' => 'none',
+                            'label' => __('Export Without Item Qties'),
                         ],
                     ],
                 ],
@@ -51,6 +48,20 @@
                         ],
                     ],
                 ],
+                'categories' => $categories->isEmpty() ? null : [
+                    'method' => 'control',
+                    'parameters' => [
+                        'field' => 'categories',
+                        'options' => [
+                            'type' => 'checkbox',
+                            'label' => __('Export only selected Categories'),
+                            'onclick' => '$("#filter-category-list").toggle();',
+                            'autocomplete' => 'off',
+                        ],
+                    ],
+                ],
+                'cat-list-start' => '<div id="filter-category-list" style="display: none;">',
+                'cat-list-end' => '</div>',
                 'hashtags' => $tags->isEmpty() ? null : [
                     'method' => 'control',
                     'parameters' => [
@@ -78,5 +89,24 @@
             ],
         ],
     ];
+
+    foreach ($categories as $category) {
+        $this->Lil->insertIntoArray(
+            $projectsExport['form']['lines'],
+            ['cat-' . $category->id => [
+                'method' => 'control',
+                'parameters' => [
+                    'category[]',
+                    [
+                        'type' => 'checkbox',
+                        'label' => $category->title,
+                        'value' => $category->id,
+                        'autocomplete' => 'off',
+                    ],
+                ],
+            ]],
+            ['before' => 'cat-list-end']
+        );
+    }
 
     echo $this->Lil->form($projectsExport);
