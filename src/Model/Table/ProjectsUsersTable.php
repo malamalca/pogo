@@ -53,7 +53,7 @@ class ProjectsUsersTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyString('id', 'create');
 
         $validator
             ->integer('role')
@@ -62,10 +62,10 @@ class ProjectsUsersTable extends Table
 
         $validator
             ->email('email')
-            ->allowEmpty('email');
+            ->allowEmptyString('email');
 
         $validator
-            ->allowEmpty('accept_key');
+            ->allowEmptyString('accept_key');
 
         return $validator;
     }

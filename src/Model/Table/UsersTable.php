@@ -132,13 +132,13 @@ class UsersTable extends Table
             ->add('passwd', 'minLength', ['rule' => ['minLength', 4]])
             ->requirePresence(
                 'repeat_passwd',
-                function ($context) {
+                function (array $context): bool {
                     return !empty($context['data']['repeat_passwd']);
                 }
             )
             ->notEmptyString('repeat_passwd')
             ->add('repeat_passwd', 'match', [
-                    'rule' => function ($value, $context) {
+                    'rule' => function (string $value, array $context): bool {
                         return $value == $context['data']['passwd'];
                     },
                 ]);
@@ -159,20 +159,20 @@ class UsersTable extends Table
             ->allowEmptyString('passwd')
             ->add('passwd', 'minLength', ['rule' => ['minLength', 4]])
 
-            ->notEmptyString('repeat_passwd', 'empty', function ($context) {
+            ->notEmptyString('repeat_passwd', 'empty', function (array $context): bool {
                 return !empty($context['data']['passwd']);
             })
             ->add('repeat_passwd', 'match', [
-                    'rule' => function ($value, $context) {
+                    'rule' => function (string $value, array $context): bool {
                         return $value == $context['data']['passwd'];
                     },
                 ])
 
-            ->notEmptyString('old_passwd', 'empty', function ($context) {
+            ->notEmptyString('old_passwd', 'empty', function (array $context): bool {
                 return !empty($context['data']['passwd']);
             })
             ->add('old_passwd', 'match', [
-                'rule' => function ($value, $context) {
+                'rule' => function (string $value, array $context): bool {
                     /** @var \App\Model\Table\UsersTable $UsersTable */
                     $UsersTable = TableRegistry::getTableLocator()->get('Users');
                     $user = $UsersTable->get($context['data']['id']);

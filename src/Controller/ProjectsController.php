@@ -32,10 +32,10 @@ class ProjectsController extends AppController
     /**
      * View method
      *
-     * @param string|null $id Project id.
+     * @param string $id Project id.
      * @return void
      */
-    public function view($id = null)
+    public function view($id)
     {
         $project = $this->Projects->get($id);
 
@@ -166,7 +166,7 @@ class ProjectsController extends AppController
         CurrentLocation::setProject($project);
 
         if (empty($this->request->getQuery('type'))) {
-            $tags = TableRegistry::get('QtiesTags')->find()
+            $tags = TableRegistry::getTableLocator()->get('QtiesTags')->find()
                 ->select()
                 ->distinct('tag')
                 ->where(['project_id' => $id])
@@ -208,5 +208,38 @@ class ProjectsController extends AppController
                 $this->redirect($this->referer());
             }
         }
+    }
+
+    /**
+     * Picture method
+     *
+     * @param string|null $id Project id.
+     * @param string $size Image size.
+     * @return \Cake\Http\Response|void
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function picture($id = null, $size = 'normal')
+    {
+        $project = $this->Projects->get($id);
+
+        $this->Authorization->authorize($project, 'view');
+
+        $imageData = null;
+        switch ($size) {
+            case 'thumb':
+                $imageData = $this->Projects->thumbnail($project);
+
+                break;
+            default:
+                if (!empty($project->ico)) {
+                    $imageData = base64_decode($project->ico);
+                }
+        }
+
+        $response = $this->response;
+        $response = $response->withStringBody($imageData);
+        $response = $response->withType('png');
+
+        return $response;
     }
 }

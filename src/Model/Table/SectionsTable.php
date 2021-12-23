@@ -168,7 +168,7 @@ class SectionsTable extends Table
         }
 
         /** @var \App\Model\Table\CategoriesTable $CategoriesTable */
-        $CategoriesTable = TableRegistry::get('Categories');
+        $CategoriesTable = TableRegistry::getTableLocator()->get('Categories');
 
         if ($category_id == $section->category_id) {
             $delta = '+'; // moving up
@@ -233,19 +233,15 @@ class SectionsTable extends Table
     public function recalc($sectionId)
     {
         $section = $this->get($sectionId);
-        if (!empty($section)) {
-            $items = $this->Items->find()->select()->where(['section_id' => $sectionId])->all();
+        $items = $this->Items->find()->select()->where(['section_id' => $sectionId])->all();
 
-            $sum = 0;
-            foreach ($items as $item) {
-                $sum += $item->qty * $item->price;
-            }
-            $section->total = $sum;
-
-            return (bool)$this->save($section);
+        $sum = 0;
+        foreach ($items as $item) {
+            $sum += $item->qty * $item->price;
         }
+        $section->total = $sum;
 
-        return false;
+        return (bool)$this->save($section);
     }
 
     /**

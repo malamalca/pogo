@@ -95,7 +95,7 @@ echo $this->Html->script('category-sortable');
 ?>
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#MenuItemAddCategory").modalPopup({
+        $("#MenuItemAddCategory2").modalPopup({
             title: "<?= __('Add Category') ?>",
             onOpen: function() { $("input#title").focus(); }
         });

@@ -24,7 +24,7 @@ class ProjectsUsersController extends AppController
     public function index($projectId)
     {
         /** @var \App\Model\Table\ProjectsTable $Projects */
-        $Projects = TableRegistry::get('Projects');
+        $Projects = TableRegistry::getTableLocator()->get('Projects');
 
         $project = $Projects->get($projectId);
 

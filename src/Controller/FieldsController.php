@@ -48,7 +48,7 @@ class FieldsController extends AppController
             $EvalMath = EvalMath::getInstance();
 
             /** @var \App\Model\Table\ProjectsTable $Projects */
-            $Projects = TableRegistry::get('Projects');
+            $Projects = TableRegistry::getTableLocator()->get('Projects');
 
             // load project variables
             $pvars = (array)$Projects->getVariables($this->request->getData('project_id'));

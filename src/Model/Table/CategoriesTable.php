@@ -169,10 +169,10 @@ class CategoriesTable extends Table
     /**
      * Returns all categories for specified project
      *
-     * @param string|null $project_id Project id
+     * @param string $project_id Project id
      * @return array
      */
-    public function findForProject($project_id = null)
+    public function findForProject($project_id)
     {
         $cats = Cache::remember('project-categories-' . $project_id, function () use ($project_id) {
             $ret = $this->find()
@@ -236,7 +236,7 @@ class CategoriesTable extends Table
      */
     public function recalc($categoryId)
     {
-        $query = TableRegistry::get('Sections')->find();
+        $query = TableRegistry::getTableLocator()->get('Sections')->find();
         $category_total = $query
             ->select(['category_total' => $query->func()->sum('total')])
             ->where(['category_id' => $categoryId])

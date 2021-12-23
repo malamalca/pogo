@@ -65,13 +65,13 @@ class QtiesTableTest extends TestCase
         $qty->qty_value = 10;
         $this->Qties->save($qty);
 
-        $item = TableRegistry::get('Items')->get($qty->item_id);
+        $item = TableRegistry::getTableLocator()->get('Items')->get($qty->item_id);
         $this->assertEquals(40, $item->qty);
 
-        $section = TableRegistry::get('Sections')->get($item->section_id);
+        $section = TableRegistry::getTableLocator()->get('Sections')->get($item->section_id);
         $this->assertEquals(40 * 2 + 20 * 3, $section->total);
 
-        $category = TableRegistry::get('Categories')->get($section->category_id);
+        $category = TableRegistry::getTableLocator()->get('Categories')->get($section->category_id);
         $this->assertEquals((40 * 2 + 20 * 3) + 84, $category->total);
     }
 }

@@ -82,7 +82,7 @@ class CategoriesControllerTest extends IntegrationTestCase
         ]);
         $this->assertRedirect();
 
-        $category = TableRegistry::get('Categories')->find()->select()->where(['title' => '00000000001'])->first();
+        $category = TableRegistry::getTableLocator()->get('Categories')->find()->select()->where(['title' => '00000000001'])->first();
         $this->assertNotEmpty($category);
         $this->assertEquals('00000000001', $category->title);
         $this->assertRedirect(['action' => 'view', $category->id]);
@@ -112,7 +112,7 @@ class CategoriesControllerTest extends IntegrationTestCase
             'title' => 'Totally New Name',
         ]);
 
-        $category = TableRegistry::get('Categories')->get('e208eb93-1c4e-4bee-87d7-200370217a5e');
+        $category = TableRegistry::getTableLocator()->get('Categories')->get('e208eb93-1c4e-4bee-87d7-200370217a5e');
         $this->assertEquals('Totally New Name', $category->title);
         $this->assertRedirect(['action' => 'view', 'e208eb93-1c4e-4bee-87d7-200370217a5e']);
     }
@@ -148,10 +148,10 @@ class CategoriesControllerTest extends IntegrationTestCase
         $this->get('/categories/reorder/e208eb93-1c4e-4bee-87d7-200370217a5e/2');
         $this->assertRedirect(['controller' => 'Categories', 'action' => 'view', 'e208eb93-1c4e-4bee-87d7-200370217a5e']);
 
-        $category = TableRegistry::get('Categories')->get('e208eb93-1c4e-4bee-87d7-200370217a5e');
+        $category = TableRegistry::getTableLocator()->get('Categories')->get('e208eb93-1c4e-4bee-87d7-200370217a5e');
         $this->assertEquals(2, $category->sort_order);
 
-        $category = TableRegistry::get('Categories')->get('e208eb93-1c4e-4bee-87d7-200370217a5f');
+        $category = TableRegistry::getTableLocator()->get('Categories')->get('e208eb93-1c4e-4bee-87d7-200370217a5f');
         $this->assertEquals(1, $category->sort_order);
     }
 }

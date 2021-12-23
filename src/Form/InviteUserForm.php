@@ -48,10 +48,10 @@ class InviteUserForm extends Form
     protected function _execute(array $data): bool
     {
         /** @var \App\Model\Table\ProjectsUsersTable $ProjectsUsers */
-        $ProjectsUsers = TableRegistry::get('ProjectsUsers');
+        $ProjectsUsers = TableRegistry::getTableLocator()->get('ProjectsUsers');
 
         /** @var \App\Model\Table\UsersTable $Users */
-        $Users = TableRegistry::get('Users');
+        $Users = TableRegistry::getTableLocator()->get('Users');
 
         // try to find user with specified data
 
@@ -89,7 +89,7 @@ class InviteUserForm extends Form
 
         if (!empty($projectsUser)) {
             /** @var \App\Model\Table\ProjectsTable $Projects */
-            $Projects = TableRegistry::get('Projects');
+            $Projects = TableRegistry::getTableLocator()->get('Projects');
             $project = $Projects->get($projectsUser->project_id);
 
             // send new invitation

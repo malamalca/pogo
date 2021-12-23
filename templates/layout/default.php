@@ -83,7 +83,7 @@ use Cake\Routing\Router;
                     <div class="nav-title-sub col s9 no-wrap truncate"><?= implode(PHP_EOL, $breadCrumbs) ?></div>
                     <div class="col s3 right-align no-wrap truncate"><?= $currentUserLink ?></div>
                 </div>
-                <div class="brand-logo no-wrap truncate"><?= $this->fetch('title') ?? 'POGO.si' ?></div>
+                <div class="brand-logo no-wrap truncate left"><?= $this->fetch('title') ?? 'POGO.si' ?></div>
 
                 <?= $this->element('main_menu', ['prefix' => 'top']) ?>
             </div>

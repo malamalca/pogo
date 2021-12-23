@@ -112,13 +112,13 @@ class ProjectsControllerTest extends IntegrationTestCase
             'creator_person' => 'Miha Nahtigal',
         ]);
 
-        $project = TableRegistry::get('Projects')->find()->select()->where(['no' => '00000000001'])->first();
+        $project = TableRegistry::getTableLocator()->get('Projects')->find()->select()->where(['no' => '00000000001'])->first();
 
         $this->assertNotEmpty($project);
         $this->assertEquals('Hello World', $project->title);
         $this->assertRedirect(['action' => 'view', $project->id]);
 
-        $projectUsers = TableRegistry::get('ProjectsUsers')->find()->select()->where([
+        $projectUsers = TableRegistry::getTableLocator()->get('ProjectsUsers')->find()->select()->where([
             'user_id' => '1d6d0308-9a84-4df2-9254-641be5b8a332',
             'project_id' => $project->id,
         ])->first();
@@ -172,7 +172,7 @@ class ProjectsControllerTest extends IntegrationTestCase
             'creator_person' => 'Miha Nahtigal',
         ]);
 
-        $project = TableRegistry::get('Projects')->get('98a29be9-340b-4ef3-a4e7-86c227920b94');
+        $project = TableRegistry::getTableLocator()->get('Projects')->get('98a29be9-340b-4ef3-a4e7-86c227920b94');
         $this->assertEquals('Hello World', $project->title);
         $this->assertRedirect(['action' => 'view', '98a29be9-340b-4ef3-a4e7-86c227920b94']);
     }
@@ -207,7 +207,7 @@ class ProjectsControllerTest extends IntegrationTestCase
             'notes' => 'A new note',
         ]);
 
-        $project = TableRegistry::get('Projects')->get('98a29be9-340b-4ef3-a4e7-86c227920b94');
+        $project = TableRegistry::getTableLocator()->get('Projects')->get('98a29be9-340b-4ef3-a4e7-86c227920b94');
         $this->assertEquals('A new note', $project->notes);
         $this->assertResponseOk();
     }
@@ -237,7 +237,7 @@ class ProjectsControllerTest extends IntegrationTestCase
         $this->assertRedirect(['controller' => 'Projects', 'action' => 'index']);
 
         // check ProjectsUsers cleanup
-        $projectUsers = TableRegistry::get('ProjectsUsers')->find()->select()->where([
+        $projectUsers = TableRegistry::getTableLocator()->get('ProjectsUsers')->find()->select()->where([
             'user_id' => '1d6d0308-9a84-4df2-9254-641be5b8a332',
             'project_id' => '98a29be9-340b-4ef3-a4e7-86c227920b94',
         ])->first();

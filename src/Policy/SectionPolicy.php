@@ -23,7 +23,7 @@ class SectionPolicy
             $category = $section->category;
         } else {
             /** @var \App\Model\Table\CategoriesTable $CategoriesTable */
-            $CategoriesTable = TableRegistry::get('Categories');
+            $CategoriesTable = TableRegistry::getTableLocator()->get('Categories');
             $category = $CategoriesTable->getCached($section->category_id);
         }
 
@@ -43,7 +43,7 @@ class SectionPolicy
             $category = $section->category;
         } else {
             /** @var \App\Model\Table\CategoriesTable $CategoriesTable */
-            $CategoriesTable = TableRegistry::get('Categories');
+            $CategoriesTable = TableRegistry::getTableLocator()->get('Categories');
 
             $category = $CategoriesTable->getCached($section->category_id);
         }

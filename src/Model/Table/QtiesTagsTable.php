@@ -69,12 +69,12 @@ class QtiesTagsTable extends Table
     {
         $validator
             ->uuid('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyString('id', 'create');
 
         $validator
             ->scalar('tag')
             ->maxLength('tag', 200)
-            ->allowEmpty('tag');
+            ->allowEmptyString('tag');
 
         return $validator;
     }

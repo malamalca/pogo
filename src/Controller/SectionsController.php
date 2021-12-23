@@ -25,13 +25,13 @@ class SectionsController extends AppController
         $section = $this->Sections->get($id, ['contain' => ['Items']]);
 
         /** @var \App\Model\Table\CategoriesTable $Categories */
-        $Categories = TableRegistry::get('Categories');
+        $Categories = TableRegistry::getTableLocator()->get('Categories');
         $category = $Categories->getCached($section->category_id);
 
         $this->Authorization->authorize($section);
 
         /** @var \App\Model\Table\ProjectsTable $Projects */
-        $Projects = TableRegistry::get('Projects');
+        $Projects = TableRegistry::getTableLocator()->get('Projects');
 
         CurrentLocation::set($Projects->get($category->project_id), $category, $section);
 
@@ -61,7 +61,7 @@ class SectionsController extends AppController
         $category = $this->Sections->Categories->get($section->category_id);
 
         /** @var \App\Model\Table\ProjectsTable $ProjectsTable */
-        $ProjectsTable = TableRegistry::get('Projects');
+        $ProjectsTable = TableRegistry::getTableLocator()->get('Projects');
 
         CurrentLocation::set(
             $ProjectsTable->get($category->project_id),
@@ -123,9 +123,12 @@ class SectionsController extends AppController
         $this->Authorization->authorize($section, 'edit');
 
         if ($this->Sections->reorder($section, $category_id, $position)) {
+            /** @var \App\Model\Table\CategoriesTable $CategoriesTable */
+            $CategoriesTable = TableRegistry::getTableLocator()->get('Categories');
+
             $ret = [
-                'previous' => TableRegistry::get('Categories')->get($section->category_id),
-                'new' => TableRegistry::get('Categories')->get($category_id ?: $section->category_id),
+                'previous' => $CategoriesTable->get($section->category_id),
+                'new' => $CategoriesTable->get('Categories')->get($category_id ?: $section->category_id),
             ];
 
             $this->response = $this->response->withType('json');

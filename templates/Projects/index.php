@@ -51,6 +51,8 @@ if (empty($projects)) {
     ];
 
     $archived = false;
+
+    $projectsIndex['panels']['projects']['lines'][] = '<div class="row" style="margin-top: 20px">';
     foreach ($projects as $project) {
         $title = implode(' - ', array_filter([$project->no, $project->title]));
         if (!empty($project->subtitle)) {
@@ -58,13 +60,9 @@ if (empty($projects)) {
         }
         $title = $this->Html->link($title, ['action' => 'view', $project->id]);
 
-        $projectsIndex['panels']['projects']['lines'][] = sprintf(
-            '<div class="dashboard-project dashboard-project-%2$s" id="project-%1$s">%3$s</div>',
-            $project->id,
-            $project->archived ? 'archived' : 'active',
-            $title
-        );
+        $projectsIndex['panels']['projects']['lines'][] = $this->element('project_card', compact('project'));
     }
+    $projectsIndex['panels']['projects']['lines'][] = '</div>';
 
     echo $this->Lil->panels($projectsIndex, 'Projects.index');
 }

@@ -74,7 +74,7 @@ class ItemsControllerTest extends IntegrationTestCase
     {
         $this->login();
 
-        $sectionBefore = TableRegistry::get('Sections')->get('6d413fcd-2812-4a92-b686-02a4810ffce6', ['contain' => 'Items']);
+        $sectionBefore = TableRegistry::getTableLocator()->get('Sections')->get('6d413fcd-2812-4a92-b686-02a4810ffce6', ['contain' => 'Items']);
 
         $this->enableSecurityToken();
         $this->enableCsrfToken();
@@ -114,11 +114,11 @@ class ItemsControllerTest extends IntegrationTestCase
 
         $this->assertRedirect(['controller' => 'Sections', 'action' => 'view', '6d413fcd-2812-4a92-b686-02a4810ffce6']);
 
-        $item = TableRegistry::get('Items')->find()->select()->where(['descript' => 'A new item from tests'])->first();
+        $item = TableRegistry::getTableLocator()->get('Items')->find()->select()->where(['descript' => 'A new item from tests'])->first();
         $this->assertNotEmpty($item);
         $this->assertEquals(100.5, $item->qty);
 
-        $sectionAfter = TableRegistry::get('Sections')->get('6d413fcd-2812-4a92-b686-02a4810ffce6', ['contain' => 'Items']);
+        $sectionAfter = TableRegistry::getTableLocator()->get('Sections')->get('6d413fcd-2812-4a92-b686-02a4810ffce6', ['contain' => 'Items']);
         $this->assertNotEmpty($sectionAfter);
         $this->assertEquals($sectionBefore->total, $sectionAfter->total - 100.5 * 2.5);
         $this->assertEquals(count($sectionBefore->items), count($sectionAfter->items) - 1);
@@ -137,7 +137,7 @@ class ItemsControllerTest extends IntegrationTestCase
 
         $this->login();
 
-        $sectionBefore = TableRegistry::get('Sections')->get('6d413fcd-2812-4a92-b686-02a4810ffce6', ['contain' => 'Items']);
+        $sectionBefore = TableRegistry::getTableLocator()->get('Sections')->get('6d413fcd-2812-4a92-b686-02a4810ffce6', ['contain' => 'Items']);
 
         $this->enableSecurityToken();
         $this->enableCsrfToken();
@@ -177,11 +177,11 @@ class ItemsControllerTest extends IntegrationTestCase
 
         $this->assertRedirect(['controller' => 'Sections', 'action' => 'view', '6d413fcd-2812-4a92-b686-02a4810ffce6']);
 
-        $item = TableRegistry::get('Items')->find()->select()->where(['descript' => 'A new item from tests'])->first();
+        $item = TableRegistry::getTableLocator()->get('Items')->find()->select()->where(['descript' => 'A new item from tests'])->first();
         $this->assertNotEmpty($item);
         $this->assertEquals(100.5, $item->qty);
 
-        $sectionAfter = TableRegistry::get('Sections')->get('6d413fcd-2812-4a92-b686-02a4810ffce6', ['contain' => 'Items']);
+        $sectionAfter = TableRegistry::getTableLocator()->get('Sections')->get('6d413fcd-2812-4a92-b686-02a4810ffce6', ['contain' => 'Items']);
         $this->assertNotEmpty($sectionAfter);
         $this->assertEquals($sectionBefore->total, $sectionAfter->total - 100.5 * 2.5);
         $this->assertEquals(count($sectionBefore->items), count($sectionAfter->items) - 1);
@@ -199,7 +199,7 @@ class ItemsControllerTest extends IntegrationTestCase
     {
         $this->login();
 
-        $sectionBefore = TableRegistry::get('Sections')->get('6d413fcd-2812-4a92-b686-02a4810ffce6', ['contain' => 'Items']);
+        $sectionBefore = TableRegistry::getTableLocator()->get('Sections')->get('6d413fcd-2812-4a92-b686-02a4810ffce6', ['contain' => 'Items']);
 
         $this->enableSecurityToken();
         $this->enableCsrfToken();
@@ -239,7 +239,7 @@ class ItemsControllerTest extends IntegrationTestCase
 
         $this->assertRedirect(['controller' => 'Sections', 'action' => 'view', '6d413fcd-2812-4a92-b686-02a4810ffce6']);
 
-        $sectionAfter = TableRegistry::get('Sections')->get('6d413fcd-2812-4a92-b686-02a4810ffce6', ['contain' => 'Items']);
+        $sectionAfter = TableRegistry::getTableLocator()->get('Sections')->get('6d413fcd-2812-4a92-b686-02a4810ffce6', ['contain' => 'Items']);
         $this->assertNotEmpty($sectionAfter);
         $this->assertEquals(count($sectionBefore->items), count($sectionAfter->items));
         $this->assertEquals($sectionBefore->total, $sectionAfter->total);
@@ -279,11 +279,11 @@ class ItemsControllerTest extends IntegrationTestCase
 
         $this->assertRedirect(['controller' => 'Sections', 'action' => 'view', '6d413fcd-2812-4a92-b686-02a4810ffce6']);
 
-        $item = TableRegistry::get('Items')->find()->select()->where(['id' => 'b4b94542-d140-4efc-afe0-53a21bc0149c'])->first();
+        $item = TableRegistry::getTableLocator()->get('Items')->find()->select()->where(['id' => 'b4b94542-d140-4efc-afe0-53a21bc0149c'])->first();
         $this->assertNotEmpty($item);
         $this->assertEquals('m^3', $item->unit);
 
-        $sectionAfter = TableRegistry::get('Sections')->get('6d413fcd-2812-4a92-b686-02a4810ffce6', ['contain' => 'Items']);
+        $sectionAfter = TableRegistry::getTableLocator()->get('Sections')->get('6d413fcd-2812-4a92-b686-02a4810ffce6', ['contain' => 'Items']);
         $this->assertNotEmpty($sectionAfter);
         $this->assertEquals(count($sectionBefore->items), count($sectionAfter->items));
         $this->assertEquals(55 * 2 + 20 * 3, $sectionAfter->total);
@@ -314,12 +314,12 @@ class ItemsControllerTest extends IntegrationTestCase
 
         $this->assertRedirect(['controller' => 'Sections', 'action' => 'view', '6d413fcd-2812-4a92-b686-02a4810ffce6']);
 
-        $item = TableRegistry::get('Items')->find()->select()->contain(['Qties'])->where(['id' => 'b4b94542-d140-4efc-afe0-53a21bc0149c'])->first();
+        $item = TableRegistry::getTableLocator()->get('Items')->find()->select()->contain(['Qties'])->where(['id' => 'b4b94542-d140-4efc-afe0-53a21bc0149c'])->first();
         $this->assertNotEmpty($item);
         $this->assertEquals(1, count($item->qties));
         $this->assertEquals(83, $item->qty);
 
-        $sectionAfter = TableRegistry::get('Sections')->get('6d413fcd-2812-4a92-b686-02a4810ffce6', ['contain' => 'Items']);
+        $sectionAfter = TableRegistry::getTableLocator()->get('Sections')->get('6d413fcd-2812-4a92-b686-02a4810ffce6', ['contain' => 'Items']);
         $this->assertNotEmpty($sectionAfter);
         $this->assertEquals(count($sectionBefore->items), count($sectionAfter->items));
         $this->assertEquals(83 * 2 + 20 * 3, $sectionAfter->total);

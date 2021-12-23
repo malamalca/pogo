@@ -17,7 +17,7 @@ class ProjectsTablePolicy
      */
     public function scopeIndex($user, $query)
     {
-        $query->matching('ProjectsUsers', function ($q) use ($user) {
+        $query->matching('ProjectsUsers', function (\Cake\ORM\Query $q) use ($user) {
             return $q->where(['ProjectsUsers.user_id' => $user->id]);
         });
 

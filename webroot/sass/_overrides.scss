@@ -46,6 +46,10 @@ nav {
     }
 }
 
+div.nav-title-sub {
+    padding-left: 7px !important;
+}
+
 ul#main-menu {
     margin-top: 45px;
 
@@ -229,4 +233,26 @@ textarea#notes {
 
 .export-filter-sub {
     margin-left: 40px !important;
+}
+
+.card-project {
+    .card {
+        height: 120px !important;
+
+        .card-head {
+            margin-left: 60px;
+        }
+
+        img.circle {
+            float: left;
+            margin-top: 2px;
+            margin-right: 10px;
+        }
+
+        .card-title {
+            @extend .truncate;
+            max-height: 64px !important;
+            white-space: inherit;
+        }
+    }
 }

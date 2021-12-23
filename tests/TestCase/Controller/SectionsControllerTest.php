@@ -48,7 +48,21 @@ class SectionsControllerTest extends TestCase
      */
     public function testView(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        // without user
+        $this->get('/sections/view/6d413fcd-2812-4a92-b686-02a4810ffce6');
+        $this->assertRedirect();
+
+        // user login
+        $this->login();
+
+        // invalid section
+        $this->disableErrorHandlerMiddleware();
+        $this->expectException(\Cake\Datasource\Exception\RecordNotFoundException::class);
+        $this->get('/sections/view/6d413fcd-2812-4a92-aaaa-02a4810ffce6');
+
+        // valid section
+        $this->get('/sections/view/6d413fcd-2812-4a92-b686-02a4810ffce6');
+        $this->assertResponseOk();
     }
 
     /**
@@ -82,15 +96,5 @@ class SectionsControllerTest extends TestCase
 
         $this->get('/sections/delete/6d413fcd-2812-4a92-b686-02a4810ffce6');
         $this->assertRedirect();
-    }
-
-    /**
-     * Test reorder method
-     *
-     * @return void
-     */
-    public function testReorder(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
     }
 }

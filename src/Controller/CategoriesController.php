@@ -29,7 +29,7 @@ class CategoriesController extends AppController
         $this->Authorization->authorize($category);
 
         /** @var \App\Model\Table\ProjectsTable $Projects */
-        $Projects = TableRegistry::get('Projects');
+        $Projects = TableRegistry::getTableLocator()->get('Projects');
 
         CurrentLocation::set($Projects->get($category->project_id), $category);
 
@@ -72,7 +72,7 @@ class CategoriesController extends AppController
         }
 
         /** @var \App\Model\Table\ProjectsTable $ProjectsTable */
-        $ProjectsTable = TableRegistry::get('Projects');
+        $ProjectsTable = TableRegistry::getTableLocator()->get('Projects');
         $project = $ProjectsTable->get($category->project_id);
 
         CurrentLocation::set($project, $category->isNew() ? null : $category);

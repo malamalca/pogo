@@ -49,12 +49,12 @@ class PogoExport
         $ret = true;
 
         // fetch project data
-        $Projects = TableRegistry::get('Projects');
+        $Projects = TableRegistry::getTableLocator()->get('Projects');
         /** @var \App\Model\Entity\Project $project */
         $project = $Projects->get($options['project']);
 
         // fetch categories
-        $q = TableRegistry::get('Categories')->find()
+        $q = TableRegistry::getTableLocator()->get('Categories')->find()
             ->select(['Categories.id', 'Categories.title', 'Categories.sort_order'])
             ->distinct('Categories.id')
             ->where(['Categories.project_id' => $options['project']])
@@ -161,7 +161,7 @@ class PogoExport
                         $category_rows[] = $j;
                         $j++;
 
-                        $q = TableRegistry::get('Sections')->find()
+                        $q = TableRegistry::getTableLocator()->get('Sections')->find()
                             ->select(['Sections.id', 'Sections.title', 'Sections.sort_order', 'Sections.descript'])
                             ->distinct('Sections.id')
                             ->where(['Sections.category_id' => $category->id])
@@ -255,7 +255,7 @@ class PogoExport
                             // target row counter
                             $i = 6;
 
-                            $q = TableRegistry::get('Qties')->find()
+                            $q = TableRegistry::getTableLocator()->get('Qties')->find()
                                 ->select()
                                 ->contain('Items')
                                 ->where(['Items.section_id' => $section->id])

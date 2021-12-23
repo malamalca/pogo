@@ -24,6 +24,8 @@ use Cake\Validation\Validator;
  */
 class ProjectsTable extends Table
 {
+    protected const THUMB_SIZE = 50;
+
     /**
      * Initialize method
      *
@@ -175,7 +177,7 @@ class ProjectsTable extends Table
         $query = $this->find();
 
         $query
-            ->matching('ProjectsUsers', function ($q) use ($userId) {
+            ->matching('ProjectsUsers', function (\Cake\ORM\Query $q) use ($userId) {
                 return $q->where(['ProjectsUsers.user_id' => $userId]);
             })
             ->order(['ProjectsUsers.archived', 'Projects.no DESC']);
@@ -206,7 +208,7 @@ class ProjectsTable extends Table
         if (!empty($variables)) {
             $ret = $variables;
         } else {
-            $Variables = TableRegistry::get('Variables');
+            $Variables = TableRegistry::getTableLocator()->get('Variables');
             $vars = $Variables->find()
                 ->select(['id', 'name', 'value'])
                 ->where(['project_id' => $id])
@@ -220,5 +222,142 @@ class ProjectsTable extends Table
         }
 
         return (array)$ret;
+    }
+
+    /**
+     * Convert string to color hash
+     *
+     * @param string $str Source string
+     * @return string
+     */
+    private function stringToColorCode($str)
+    {
+        $code = dechex(crc32($str));
+        $code = substr($code, 0, 6);
+
+        return $code;
+    }
+
+    /**
+     * Return thumbnail image for specified project
+     *
+     * @param \App\Model\Entity\Project $project Project
+     * @param int $thumbSize Thumbnail size
+     * @return mixed
+     */
+    public function thumbnail($project, $thumbSize = self::THUMB_SIZE)
+    {
+        $newImage = null;
+        if (empty($project->ico)) {
+            $newImage = imagecreatetruecolor($thumbSize, $thumbSize);
+            if ($newImage) {
+                imagealphablending($newImage, true);
+                imagesavealpha($newImage, true);
+
+                $bgRgb = '#' . $this->stringToColorCode($project->title);
+                $white = imagecolorallocatealpha(
+                    $newImage,
+                    (int)hexdec(substr($bgRgb, 1, 2)),
+                    (int)hexdec(substr($bgRgb, 3, 2)),
+                    (int)hexdec(substr($bgRgb, 5, 2)),
+                    0
+                );
+
+                $textColor = empty($project->colorize) ? '#ffffff' : $project->colorize;
+                $textColor = imagecolorallocatealpha(
+                    $newImage,
+                    (int)hexdec(substr($textColor, 1, 2)),
+                    (int)hexdec(substr($textColor, 3, 2)),
+                    (int)hexdec(substr($textColor, 5, 2)),
+                    0
+                );
+
+                if ($white && $textColor) {
+                    imagefill($newImage, 0, 0, $white);
+
+                    $caption = mb_substr($project->title, 0, 1);
+                    $parts = explode(' ', $project->title);
+                    $caption .= mb_substr($parts[count($parts) - 1], 0, 1);
+
+                    $fontFile = constant('WWW_ROOT') . 'font' . constant('DS') . 'arialbd.ttf';
+                    imagettftext(
+                        $newImage,
+                        (int)($thumbSize * 0.55),
+                        0,
+                        0,
+                        (int)(0.75 * $thumbSize),
+                        $textColor,
+                        $fontFile,
+                        strtoupper($caption)
+                    );
+                }
+            }
+        } else {
+            $im = imagecreatefromstring(base64_decode($project->ico));
+            if ($im) {
+                $width = imagesx($im);
+                $height = imagesy($im);
+
+                if ($width > $height) {
+                    $newHeight = $thumbSize;
+                    $newWidth = (int)floor($width * $newHeight / $height);
+                    $cropX = (int)ceil(($width - $height) / 2);
+                    $cropY = 0;
+                } else {
+                    $newWidth = $thumbSize;
+                    $newHeight = (int)floor($height * $newWidth / $width);
+                    $cropX = 0;
+                    $cropY = (int)ceil(($height - $width) / 2);
+                }
+
+                $newImage = imagecreatetruecolor($thumbSize, $thumbSize);
+                if ($newImage) {
+                    imagealphablending($newImage, false);
+                    imagesavealpha($newImage, true);
+                    $transparent = imagecolorallocatealpha($newImage, 255, 255, 255, 127);
+
+                    if ($transparent) {
+                        imagefilledrectangle($newImage, 0, 0, $thumbSize, $thumbSize, $transparent);
+                        imagecopyresampled(
+                            $newImage,
+                            $im,
+                            0,
+                            0,
+                            $cropX,
+                            $cropY,
+                            $newWidth,
+                            $newHeight,
+                            $width,
+                            $height
+                        );
+                        imagedestroy($im);
+
+                        if (!empty($project->colorize)) {
+                            imagefilter(
+                                $newImage,
+                                IMG_FILTER_COLORIZE,
+                                (int)hexdec(substr($project->colorize, 1, 2)),
+                                (int)hexdec(substr($project->colorize, 3, 2)),
+                                (int)hexdec(substr($project->colorize, 5, 2))
+                            );
+                        }
+                    }
+                }
+            }
+        }
+
+        if ($newImage) {
+            $im = $newImage;
+
+            ob_start();
+            imagepng($im);
+            $imageData = ob_get_contents();
+            ob_end_clean();
+            imagedestroy($im);
+
+            return $imageData;
+        }
+
+        return false;
     }
 }
